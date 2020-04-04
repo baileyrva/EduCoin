@@ -1,68 +1,61 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React Passport Example Application
 
-## Available Scripts
+An example application which combines a back-end which stores user data and front-end React.js application which handles user authentication sessions.
 
-In the project directory, you can run:
+This application be easily separated into two completely different repositories.
 
-### `npm start`
+Created using the tutorials below:
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+https://vladimirponomarev.com/blog/authentication-in-react-apps-creating-components
+https://vladimirponomarev.com/blog/authentication-in-react-apps-jwt
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+However, this version has replaced the React Router v3 which were used in the above tutorials with the most recent React Router v4 which has some major differences. I also made some minor tweaks to account for the NPM packages which had issues due to updates since the tutorial was published.
 
-### `npm test`
+This application incorporates the following packages:
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- axios
+- bcryptjs
+- jsonwebtoken
+- mongoose
+- passport
+- react-router-dom
+- validator
 
-### `npm run build`
+## Installation
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+After cloning the repo, follow the steps below:
+```sh
+$ cd react-passport-example
+```
+```sh
+$ yarn install
+```
+```sh
+$ sudo mongod
+```
+```sh
+$ yarn run dev
+```
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+When editing the files, run the following command for webpack to watch your files and bundle whenever changes are made:
+```sh
+$ yarn run bundle
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Screenshots
 
-### `npm run eject`
+Home page before login:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+![Alt Home Page](/README/home.png?raw=true)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Sign up page:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+![Alt Signup Page](/README/signup.png?raw=true)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Login page:
 
-## Learn More
+![Alt Login Page](/README/login.png?raw=true)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Dashboard which is only accessible after login:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+![Alt Dashboard](/README/dashboard.png?raw=true)

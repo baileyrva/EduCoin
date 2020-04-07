@@ -15,10 +15,12 @@ function validateSignupForm(payload) {
   const errors = {};
   let isFormValid = true;
   let message = '';
+  let validEmail = new RegExp(".*@[a-z0-9_-]+\.(edu$|stu$)", "i"); 
 
-  if (!payload || typeof payload.email !== 'string' || !validator.isEmail(payload.email)) {
+  if (!payload || typeof payload.email !== 'string' || !validator.isEmail(payload.email) || validEmail.exec(payload.email)=== null) {
     isFormValid = false;
     errors.email = 'Please provide a correct email address.';
+    
   }
 
   if (!payload || typeof payload.password !== 'string' || payload.password.trim().length < 8) {

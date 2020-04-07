@@ -16461,12 +16461,12 @@ var DashboardPage = function (_React$Component) {
    * This method will be executed after initial rendering.
    */
 
-
   _createClass(DashboardPage, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
       var _this2 = this;
 
+      var allUsers = this.getAllUsers();
       var xhr = new XMLHttpRequest();
       xhr.open('get', '/api/dashboard');
       xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -16480,6 +16480,20 @@ var DashboardPage = function (_React$Component) {
             user: xhr.response.user
           });
         }
+      });
+      xhr.send();
+    }
+  }, {
+    key: 'getAllUsers',
+    value: function getAllUsers() {
+      var xhr = new XMLHttpRequest();
+      xhr.open('get', '/api/users');
+      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+      // set the authorization HTTP header
+      xhr.setRequestHeader('Authorization', 'bearer ' + _Auth2.default.getToken());
+      xhr.responseType = 'json';
+      xhr.addEventListener('load', function () {
+        console.log(xhr.response);
       });
       xhr.send();
     }

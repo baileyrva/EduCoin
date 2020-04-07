@@ -9,7 +9,9 @@ const Dashboard = ({ secretData, user }) => (
       subtitle="You should get access to this page only after authentication."
     />
   {secretData && <CardText style={{ fontSize: '16px', color: 'green' }}>Welcome <strong>{user.name}</strong>!<br />{secretData}</CardText>}
+  <p>This is where we can put the chart from the database.</p>
   </Card>
+  
 );
 
 Dashboard.propTypes = {

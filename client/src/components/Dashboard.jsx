@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 import { Card, CardTitle, CardText } from 'material-ui/Card';
 
 
-const Dashboard = ({ secretData, user }) => (
-  <div className="background">
+const Dashboard = ({ secretData, user, allUsers }) => (
   <Card className="container">
     <CardTitle
       title="Dashboard"
       subtitle="You should get access to this page only after authentication."
     />
   {secretData && <CardText style={{ fontSize: '16px', color: 'green' }}>Welcome <strong>{user.name}</strong>!<br />{secretData}</CardText>}
+  
   </Card>
-  </div>
+  
 );
 
 Dashboard.propTypes = {

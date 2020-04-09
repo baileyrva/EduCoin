@@ -16068,7 +16068,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var Dashboard = function Dashboard(_ref) {
   var secretData = _ref.secretData,
-      user = _ref.user;
+      user = _ref.user,
+      allUsers = _ref.allUsers;
   return _react2.default.createElement(
     _Card.Card,
     { className: 'container' },
@@ -16087,12 +16088,23 @@ var Dashboard = function Dashboard(_ref) {
       ),
       '!',
       _react2.default.createElement('br', null),
-      secretData
-    ),
-    _react2.default.createElement(
-      'p',
-      null,
-      'This is where we can put the chart from the database.'
+      secretData,
+      ' ',
+      _react2.default.createElement('br', null),
+      'Student data ',
+      _react2.default.createElement('br', null),
+      ' ',
+      _react2.default.createElement(
+        'strong',
+        null,
+        allUsers.map(function (student) {
+          return _react2.default.createElement(
+            'p',
+            { key: student._id },
+            student.name
+          );
+        })
+      )
     )
   );
 };
@@ -16452,7 +16464,8 @@ var DashboardPage = function (_React$Component) {
 
     _this.state = {
       secretData: '',
-      user: {}
+      user: {},
+      allUsers: []
     };
     return _this;
   }
@@ -16478,6 +16491,7 @@ var DashboardPage = function (_React$Component) {
           _this2.setState({
             secretData: xhr.response.message,
             user: xhr.response.user
+
           });
         }
       });
@@ -16486,6 +16500,8 @@ var DashboardPage = function (_React$Component) {
   }, {
     key: 'getAllUsers',
     value: function getAllUsers() {
+      var _this3 = this;
+
       var xhr = new XMLHttpRequest();
       xhr.open('get', '/api/users');
       xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -16494,6 +16510,11 @@ var DashboardPage = function (_React$Component) {
       xhr.responseType = 'json';
       xhr.addEventListener('load', function () {
         console.log(xhr.response);
+        if (xhr.status === 200) {
+          _this3.setState({
+            allUsers: xhr.response
+          });
+        }
       });
       xhr.send();
     }
@@ -16505,7 +16526,7 @@ var DashboardPage = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      return _react2.default.createElement(_Dashboard2.default, { secretData: this.state.secretData, user: this.state.user });
+      return _react2.default.createElement(_Dashboard2.default, { secretData: this.state.secretData, user: this.state.user, allUsers: this.state.allUsers });
     }
   }]);
 

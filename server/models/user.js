@@ -10,7 +10,8 @@ const UserSchema = new mongoose.Schema({
   password: String,
   name: String,
   isTeacher: Boolean, 
-  isStudent: Boolean 
+  isStudent: Boolean,
+  Coin: Number 
 });
 
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SignUpForm from '../components/SignUpForm.jsx';
-
+import ChipList from '../components/Chips/Chips.jsx'
 
 class SignUpPage extends React.Component {
 
@@ -93,12 +93,15 @@ class SignUpPage extends React.Component {
    */
   render() {
     return (
+      <div>
       <SignUpForm
         onSubmit={this.processForm}
         onChange={this.changeUser}
         errors={this.state.errors}
         user={this.state.user}
       />
+      <ChipList />
+      </div>
     );
   }
 

@@ -10,12 +10,15 @@ module.exports = new PassportLocalStrategy({
   session: false,
   passReqToCallback: true
 }, (req, email, password, done) => {
+  let isStudent = email.trim().match(/.*@[a-z0-9_-]+\.stu$/i)!== null;
+  let isTeacher = email.trim().match(/.*@[a-z0-9_-]+\.edu$/i)!== null;
   const userData = {
     email: email.trim(),
     password: password.trim(),
     name: req.body.name.trim(),
-    isTeacher: email.trim().match(/.*@[a-z0-9_-]+\.edu$/i)!== null,
-    isStudent: email.trim().match(/.*@[a-z0-9_-]+\.stu$/i)!== null
+    isTeacher, 
+    isStudent, 
+    Coin: isStudent ? 100 : 0
   };
 
   const newUser = new User(userData);

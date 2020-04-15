@@ -75,6 +75,7 @@ class Main extends Component {
   }
 
   render() {
+    console.log(window.location.pathname)
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <Router>
@@ -85,8 +86,13 @@ class Main extends Component {
               </div>
               {this.state.authenticated ? (
                 <div className="top-bar-right">
+                  {window.location.pathname === "/dashboard" ? 
                   <Link to="/dashboard">Teacher Dashboard</Link>
+                  :
                   <Link to="/student">Student Dashboard</Link>
+                }
+                  
+                  
                   <Link to="/logout">Log out</Link>
                   
                 </div>

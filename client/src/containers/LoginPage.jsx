@@ -65,12 +65,20 @@ class LoginPage extends React.Component {
         // save the token
         Auth.authenticateUser(xhr.response.token);
 
-        // update authenticated state
-        this.props.toggleAuthenticateStatus()
+        
 
         // redirect signed in user to dashboard
+        if (this.state.user.email.trim().match(/.*@[a-z0-9_-]+\.edu$/i)!== null)
         this.props.history.push('/dashboard');
+        else 
+        this.props.history.push('/student');
+
+
+        // update authenticated state
+        this.props.toggleAuthenticateStatus()
+        
       } else {
+
         // failure
 
         // change the component state

@@ -17609,6 +17609,7 @@ var Main = function (_Component) {
     value: function render() {
       var _this2 = this;
 
+      console.log(window.location.pathname);
       return _react2.default.createElement(
         _MuiThemeProvider2.default,
         { muiTheme: (0, _getMuiTheme2.default)() },
@@ -17633,12 +17634,11 @@ var Main = function (_Component) {
               this.state.authenticated ? _react2.default.createElement(
                 'div',
                 { className: 'top-bar-right' },
-                _react2.default.createElement(
+                window.location.pathname === "/dashboard" ? _react2.default.createElement(
                   _reactRouterDom.Link,
                   { to: '/dashboard' },
                   'Teacher Dashboard'
-                ),
-                _react2.default.createElement(
+                ) : _react2.default.createElement(
                   _reactRouterDom.Link,
                   { to: '/student' },
                   'Student Dashboard'
@@ -18427,12 +18427,13 @@ var LoginPage = function (_React$Component) {
           // save the token
           _Auth2.default.authenticateUser(xhr.response.token);
 
+          // redirect signed in user to dashboard
+          if (_this2.state.user.email.trim().match(/.*@[a-z0-9_-]+\.edu$/i) !== null) _this2.props.history.push('/dashboard');else _this2.props.history.push('/student');
+
           // update authenticated state
           _this2.props.toggleAuthenticateStatus();
-
-          // redirect signed in user to dashboard
-          _this2.props.history.push('/dashboard');
         } else {
+
           // failure
 
           // change the component state

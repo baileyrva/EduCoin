@@ -6,7 +6,7 @@ const router = new express.Router();
 router.get("/dashboard", (req, res) => {
   return User.find({isStudent:true}, function(err, docs) {
      return res.status(200).json({
-      message: "You're an authorized user of EduCoin!",
+      message: "You're authorized to see this teacher dashboard.",
       // user values passed through from auth middleware
       user: req.user,
       students: docs
@@ -27,5 +27,15 @@ router.get("/user", (req, res, next) => {
 });
 
 router.get("/students");
+router.get("/student", (req, res) => {
+  return User.find({_id:req.user._id}, function(err, docs) {
+     return res.status(200).json({
+      message: "You're authorized to your student dashboard.",
+      // user values passed through from auth middleware
+      user: req.user,
+      students: docs
+    });
+  }) 
+});
 
 module.exports = router;

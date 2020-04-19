@@ -1,7 +1,7 @@
 import React from "react";
 import Avatar from "material-ui/Avatar";
 import Chip from "material-ui/Chip";
-import { orange700, orange300, grey50 } from "material-ui/styles/colors";
+import { orange700, green700 } from "material-ui/styles/colors";
 
 const styles = {
   chip: {
@@ -17,20 +17,18 @@ function handleRequestDelete() {
   alert("You clicked the delete button.");
 }
 
-function handleTouchTap() {
-  alert("You clicked the Chip.");
-}
+const handleTouchTap = (props) => {
+  props.allUsers.filter((e) => e.email === condition)
+  
+  .map(e => e.columns)
+  .reduce((prev, current) => prev.concat(current), [])
+  .map((column, index) => <p key={ index }>{ column.name }</p>)
 
-/**
- * Examples of Chips, using an image [Avatar](/#/components/font-icon), [Font Icon](/#/components/font-icon) Avatar,
- * [SVG Icon](/#/components/svg-icon) Avatar, "Letter" (string) Avatar, and with custom colors.
- *
- * Chips with the `onRequestDelete` property defined will display a delete icon.
- */
-export default class ChipList extends React.Component {
-  render() {
-    return (
+}
+const ChipList = (props) => (
+  
       <div className="container" style={styles.wrapper}>
+        {/* {props.user.Coin} */}
         <Chip
           backgroundColor={orange700}
           onTouchTap={handleTouchTap}
@@ -39,19 +37,15 @@ export default class ChipList extends React.Component {
           <Avatar size={32} src="https://www.kroger.com/product/images/xlarge/front/0002840004144" />
           Cheetos!
         </Chip>
-      </div>
-    );
-  }
-}
-
-{/* <Chip
-          backgroundColor={orange700}
-          onRequestDelete={handleRequestDelete}
+        <Chip
+          backgroundColor={green700}
           onTouchTap={handleTouchTap}
           style={styles.chip}
         >
-          <Avatar size={32} color={grey50} backgroundColor={orange300}>
-            CH
-          </Avatar>
-          Cheetos!
-        </Chip> */}
+          <Avatar size={32} src="https://media.treehugger.com/assets/images/2016/07/green-forest-trees.jpg.860x0_q70_crop-scale.jpg" />
+          60min Green Time
+        </Chip>
+      </div>
+    );
+
+    export default ChipList; 

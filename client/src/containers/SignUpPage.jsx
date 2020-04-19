@@ -100,7 +100,7 @@ class SignUpPage extends React.Component {
         errors={this.state.errors}
         user={this.state.user}
       />
-      <ChipList />
+      
       </div>
     );
   }

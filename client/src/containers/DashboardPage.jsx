@@ -63,6 +63,26 @@ class DashboardPage extends React.Component {
     xhr.send();
   }
 
+  getSingleUser() {
+    const xhr = new XMLHttpRequest();
+    xhr.open('get', '/api/user');
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    // set the authorization HTTP header
+    xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      console.log(xhr.response); 
+      if (xhr.status === 200) {
+        this.setState({
+          loggedInUser: xhr.response
+        });
+      }
+
+    });
+    xhr.send();
+
+  }
+
   /**
    * Render the component.
    */

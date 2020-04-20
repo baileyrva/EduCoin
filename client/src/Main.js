@@ -60,9 +60,19 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      authenticated: false
+      authenticated: false,
+      isTeacher: localStorage.isTeacher
     }
+    this.isTeacher = this.isTeacher.bind(this);
   };
+
+  componentDidUpdate() {
+    if (localStorage.isTeacher !== this.state.isTeacher){
+      this.setState({'isTeacher': localStorage.isTeacher})
+      console.log(localStorage.isTeacher)
+    }
+    
+  }
 
   componentDidMount() {
     // check if user is logged in on refresh
@@ -74,8 +84,24 @@ class Main extends Component {
     this.setState({ authenticated: Auth.isUserAuthenticated() })
   }
 
+  isTeacher() {
+    
+   
+   if (this.state.isTeacher === "false"){
+    return(
+      <Link to="/student">Student Dashboard</Link>
+      )
+    
+   }
+   else {
+    return(
+      <Link to="/dashboard">Teacher Dashboard</Link>
+     )
+   }
+  }
+  
   render() {
-    console.log(window.location.pathname)
+    
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <Router>
@@ -86,10 +112,9 @@ class Main extends Component {
               </div>
               {this.state.authenticated ? (
                 <div className="top-bar-right">
-                  {window.location.pathname === "/dashboard" ? 
-                  <Link to="/dashboard">Teacher Dashboard</Link>
-                  :
-                  <Link to="/student">Student Dashboard</Link>
+                  
+                  {this.isTeacher()  
+
                 }
                   
                   

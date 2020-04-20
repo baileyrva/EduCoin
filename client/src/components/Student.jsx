@@ -5,6 +5,8 @@ import { Card, CardTitle, CardText } from 'material-ui/Card';
 import Coin from 'material-ui/svg-icons/action/donut-small';
 import RaisedButton from 'material-ui/RaisedButton';
 
+
+
 const Student = ({ secretData, user, allUsers }) => (
   <Card className="container">
     <CardTitle

@@ -1,7 +1,9 @@
 const express = require("express");
 const User = require("mongoose").model("User");
+const CoinRequest = require("mongoose").model("CoinRequest");
 
 const router = new express.Router();
+
 
 router.get("/dashboard", (req, res) => {
   return User.find({isStudent:true}, function(err, docs) {
@@ -30,5 +32,23 @@ router.get("/student", (req, res) => {
     });
   }) 
 });
+
+router.post("/coin-request", (req, res) => {
+  if (!req.user){
+    return res.status(401)
+  }
+  return CoinRequest.create({user: req.user._id}, function(err){
+    return res.status(200)
+  })
+})
+
+router.get("/coin-request", (req, res) => {
+  if (!req.user){
+    return res.status(401)
+  }
+  return CoinRequest.find({user: req.user._id}, function(err, result){
+    return res.json(result)
+  })
+})
 
 module.exports = router;

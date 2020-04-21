@@ -14,7 +14,8 @@ class StudentPage extends React.Component {
     this.state = {
       secretData: '',
       user: {},
-      allUsers: []
+      allUsers: [],
+      hasOpenRequest: false
     };
   }
 
@@ -24,6 +25,7 @@ class StudentPage extends React.Component {
   
   componentDidMount() {
     var allUsers = this.getAllUsers()
+    this.checkForOpenRequest();
     const xhr = new XMLHttpRequest();
     xhr.open('get', '/api/student');
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -31,7 +33,7 @@ class StudentPage extends React.Component {
     xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {
-      console.log(xhr.response);
+      
       if (xhr.status === 200) {
         this.setState({
           secretData: xhr.response.message,
@@ -52,7 +54,7 @@ class StudentPage extends React.Component {
     xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {
-      console.log(xhr.response); 
+       
       if (xhr.status === 200) {
         this.setState({
           allUsers: xhr.response
@@ -62,6 +64,25 @@ class StudentPage extends React.Component {
     });
     xhr.send();
   }
+
+  checkForOpenRequest(){
+    const xhr = new XMLHttpRequest();
+    xhr.open('get', '/api/coin-request');
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    // set the authorization HTTP header
+    xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+       
+      if (xhr.status === 200) {
+        this.setState({
+          hasOpenRequest: xhr.response.lenght > 0
+        });
+      }
+
+    });
+    xhr.send();
+  } 
 
   /**
    * Render the component.

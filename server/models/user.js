@@ -11,8 +11,11 @@ const UserSchema = new mongoose.Schema({
   name: String,
   isTeacher: Boolean, 
   isStudent: Boolean,
-  Coin: Number 
+  Coin: Number
+
 });
+
+
 
 
 /**

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Card, CardTitle, CardText } from "material-ui/Card";
 import TableSimple from "./Tables.jsx";
-import ChipList from "./Chips/Chips.jsx"
+
 
 const Dashboard = ({ secretData, user, allUsers }) => (
   <Card className="container">
@@ -14,13 +14,10 @@ const Dashboard = ({ secretData, user, allUsers }) => (
       <CardText style={{ fontSize: "16px", color: "green" }}>
         Welcome <strong>{user.name}</strong>!<br />
         {secretData} <br />
-        Student data <br />
-        {user.Coin - 5}{" "}
       </CardText>
     )}
 
     <TableSimple allUsers={allUsers} />
-    <ChipList user={user} />
   </Card>
 );
 

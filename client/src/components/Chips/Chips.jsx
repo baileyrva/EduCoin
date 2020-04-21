@@ -1,7 +1,14 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Avatar from "material-ui/Avatar";
 import Chip from "material-ui/Chip";
-import { orange700, green700 } from "material-ui/styles/colors";
+import {
+  orange700,
+  green700,
+  red400,
+  blue400,
+  grey400
+} from "material-ui/styles/colors";
 
 const styles = {
   chip: {
@@ -9,43 +16,59 @@ const styles = {
   },
   wrapper: {
     display: "flex",
+    paddingTop: '4rem',
+    marginLeft: '7rem',
     flexWrap: "wrap",
   },
 };
 
-function handleRequestDelete() {
-  alert("You clicked the delete button.");
-}
+const ChipList = ({ props, handleTouchTap }) => (
+  <div className="container" style={styles.wrapper}>
+    <Chip
+      backgroundColor={orange700}
+      onClick={handleTouchTap}
+      style={styles.chip}
+    >
+      <Avatar
+        size={32}
+        src="https://www.kroger.com/product/images/xlarge/front/0002840004144"
+      />
+      Cheetos!
+    </Chip>
+    <Chip
+      backgroundColor={green700}
+      onClick={handleTouchTap}
+      style={styles.chip}
+    >
+      <Avatar
+        size={32}
+        src="https://media.treehugger.com/assets/images/2016/07/green-forest-trees.jpg.860x0_q70_crop-scale.jpg"
+      />
+      Green Time!
+    </Chip>
+    <Chip backgroundColor={red400} onClick={handleTouchTap} style={styles.chip}>
+      <Avatar
+        size={32}
+        src="https://imagesvc.meredithcorp.io/v3/mm/image?url=https://static.onecms.io/wp-content/uploads/sites/9/2019/10/halloween-candy-taste-test-ft-blog1019.jpg"
+      />
+      Candy!
+    </Chip>
+    <Chip
+      backgroundColor={grey400}
+      onClick={handleTouchTap}
+      style={styles.chip}
+    >
+      <Avatar
+        size={32}
+        src="https://dynamic.zacdn.com/fQmbSJP5TwR2C_pYCMMaLX3cNqM=/fit-in/346x500/filters:quality(95):fill(ffffff)/http://static.ph.zalora.net/p/nike-9220-7598131-1.jpg"
+      />
+      Prize Bag!
+    </Chip>
+  </div>
+);
 
-const handleTouchTap = (props) => {
-  props.allUsers.filter((e) => e.email === condition)
-  
-  .map(e => e.columns)
-  .reduce((prev, current) => prev.concat(current), [])
-  .map((column, index) => <p key={ index }>{ column.name }</p>)
+ChipList.propTypes = {
+  handleTouchTap: PropTypes.func.isRequired,
+};
 
-}
-const ChipList = (props) => (
-  
-      <div className="container" style={styles.wrapper}>
-        {/* {props.user.Coin} */}
-        <Chip
-          backgroundColor={orange700}
-          onTouchTap={handleTouchTap}
-          style={styles.chip}
-        >
-          <Avatar size={32} src="https://www.kroger.com/product/images/xlarge/front/0002840004144" />
-          Cheetos!
-        </Chip>
-        <Chip
-          backgroundColor={green700}
-          onTouchTap={handleTouchTap}
-          style={styles.chip}
-        >
-          <Avatar size={32} src="https://media.treehugger.com/assets/images/2016/07/green-forest-trees.jpg.860x0_q70_crop-scale.jpg" />
-          60min Green Time
-        </Chip>
-      </div>
-    );
-
-    export default ChipList; 
+export default ChipList;

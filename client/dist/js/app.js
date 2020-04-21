@@ -3047,7 +3047,8 @@ var Auth = function () {
      *
      * @param {string} token
      */
-    value: function authenticateUser(token) {
+    value: function authenticateUser(token, isTeacher) {
+      localStorage.setItem('isTeacher', isTeacher);
       localStorage.setItem('token', token);
     }
 
@@ -3060,6 +3061,7 @@ var Auth = function () {
   }, {
     key: 'isUserAuthenticated',
     value: function isUserAuthenticated() {
+
       return localStorage.getItem('token') !== null;
     }
 
@@ -3071,6 +3073,7 @@ var Auth = function () {
   }, {
     key: 'deauthenticateUser',
     value: function deauthenticateUser() {
+      localStorage.removeItem('isTeacher');
       localStorage.removeItem('token');
     }
 
@@ -15982,12 +15985,22 @@ var Main = function (_Component) {
     var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
 
     _this.state = {
-      authenticated: false
+      authenticated: false,
+      isTeacher: localStorage.isTeacher
     };
+    _this.isTeacher = _this.isTeacher.bind(_this);
     return _this;
   }
 
   _createClass(Main, [{
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate() {
+      if (localStorage.isTeacher !== this.state.isTeacher) {
+        this.setState({ 'isTeacher': localStorage.isTeacher });
+        console.log(localStorage.isTeacher);
+      }
+    }
+  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
       // check if user is logged in on refresh
@@ -16000,11 +16013,28 @@ var Main = function (_Component) {
       this.setState({ authenticated: _Auth2.default.isUserAuthenticated() });
     }
   }, {
+    key: 'isTeacher',
+    value: function isTeacher() {
+
+      if (this.state.isTeacher === "false") {
+        return _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: '/student' },
+          'Student Dashboard'
+        );
+      } else {
+        return _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: '/dashboard' },
+          'Teacher Dashboard'
+        );
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
 
-      console.log(window.location.pathname);
       return _react2.default.createElement(
         _MuiThemeProvider2.default,
         { muiTheme: (0, _getMuiTheme2.default)() },
@@ -16029,15 +16059,7 @@ var Main = function (_Component) {
               this.state.authenticated ? _react2.default.createElement(
                 'div',
                 { className: 'top-bar-right' },
-                window.location.pathname === "/dashboard" ? _react2.default.createElement(
-                  _reactRouterDom.Link,
-                  { to: '/dashboard' },
-                  'Teacher Dashboard'
-                ) : _react2.default.createElement(
-                  _reactRouterDom.Link,
-                  { to: '/student' },
-                  'Student Dashboard'
-                ),
+                this.isTeacher(),
                 _react2.default.createElement(
                   _reactRouterDom.Link,
                   { to: '/logout' },
@@ -16327,112 +16349,7 @@ _reactDom2.default.render(_react2.default.createElement(_Main2.default, null), d
 
 
 /***/ }),
-/* 203 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(2);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _Avatar = __webpack_require__(146);
-
-var _Avatar2 = _interopRequireDefault(_Avatar);
-
-var _Chip = __webpack_require__(318);
-
-var _Chip2 = _interopRequireDefault(_Chip);
-
-var _colors = __webpack_require__(66);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var styles = {
-  chip: {
-    margin: 4
-  },
-  wrapper: {
-    display: "flex",
-    paddingTop: '4rem',
-    marginLeft: '7rem',
-    flexWrap: "wrap"
-  }
-};
-
-var ChipList = function ChipList(_ref) {
-  var props = _ref.props,
-      handleTouchTap = _ref.handleTouchTap;
-  return _react2.default.createElement(
-    "div",
-    { className: "container", style: styles.wrapper },
-    _react2.default.createElement(
-      _Chip2.default,
-      {
-        backgroundColor: _colors.orange700,
-        onClick: handleTouchTap,
-        style: styles.chip
-      },
-      _react2.default.createElement(_Avatar2.default, {
-        size: 32,
-        src: "https://www.kroger.com/product/images/xlarge/front/0002840004144"
-      }),
-      "Cheetos!"
-    ),
-    _react2.default.createElement(
-      _Chip2.default,
-      {
-        backgroundColor: _colors.green700,
-        onClick: handleTouchTap,
-        style: styles.chip
-      },
-      _react2.default.createElement(_Avatar2.default, {
-        size: 32,
-        src: "https://media.treehugger.com/assets/images/2016/07/green-forest-trees.jpg.860x0_q70_crop-scale.jpg"
-      }),
-      "Green Time!"
-    ),
-    _react2.default.createElement(
-      _Chip2.default,
-      { backgroundColor: _colors.red400, onClick: handleTouchTap, style: styles.chip },
-      _react2.default.createElement(_Avatar2.default, {
-        size: 32,
-        src: "https://imagesvc.meredithcorp.io/v3/mm/image?url=https://static.onecms.io/wp-content/uploads/sites/9/2019/10/halloween-candy-taste-test-ft-blog1019.jpg"
-      }),
-      "Candy!"
-    ),
-    _react2.default.createElement(
-      _Chip2.default,
-      {
-        backgroundColor: _colors.grey400,
-        onClick: handleTouchTap,
-        style: styles.chip
-      },
-      _react2.default.createElement(_Avatar2.default, {
-        size: 32,
-        src: "https://dynamic.zacdn.com/fQmbSJP5TwR2C_pYCMMaLX3cNqM=/fit-in/346x500/filters:quality(95):fill(ffffff)/http://static.ph.zalora.net/p/nike-9220-7598131-1.jpg"
-      }),
-      "Prize Bag!"
-    )
-  );
-};
-
-ChipList.propTypes = {
-  handleTouchTap: _propTypes2.default.func.isRequired
-};
-
-exports.default = ChipList;
-
-/***/ }),
+/* 203 */,
 /* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16800,88 +16717,9 @@ exports.default = SignUpForm;
 
 /***/ }),
 /* 208 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(2);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _Card = __webpack_require__(59);
-
-var _donutSmall = __webpack_require__(347);
-
-var _donutSmall2 = _interopRequireDefault(_donutSmall);
-
-var _RaisedButton = __webpack_require__(98);
-
-var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
-
-var _Chips = __webpack_require__(203);
-
-var _Chips2 = _interopRequireDefault(_Chips);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Student = function Student(_ref) {
-  var secretData = _ref.secretData,
-      user = _ref.user,
-      handleTouchTap = _ref.handleTouchTap;
-  return _react2.default.createElement(
-    _Card.Card,
-    { className: "container" },
-    _react2.default.createElement(_Card.CardTitle, {
-      title: "Dashboard",
-      subtitle: "You should get access to this page only after authentication."
-    }),
-    secretData && _react2.default.createElement(
-      _Card.CardText,
-      { style: { fontSize: "16px", color: "green" } },
-      "Welcome ",
-      _react2.default.createElement(
-        "strong",
-        null,
-        user.name
-      ),
-      "! ",
-      _react2.default.createElement("br", null),
-      _react2.default.createElement(
-        "div",
-        null,
-        "Coin amount"
-      ),
-      _react2.default.createElement(
-        "div",
-        null,
-        user.Coin
-      )
-    ),
-    _react2.default.createElement(_RaisedButton2.default, {
-      label: "Request Coins",
-      labelPosition: "before",
-      primary: true,
-      icon: _react2.default.createElement(_donutSmall2.default, null)
-    }),
-    _react2.default.createElement(_Chips2.default, { user: user,
-      handleTouchTap: handleTouchTap })
-  );
-};
-
-Student.propTypes = {
-  secretData: _propTypes2.default.string.isRequired
-};
-
-exports.default = Student;
+throw new Error("Module build failed: C:/Users/baile/Desktop/Code/Homework/EduCoin/client/src/components/Student.jsx: Duplicate declaration \"Coin\"\n\n\u001b[0m \u001b[90m  6 | \u001b[39m\u001b[36mimport\u001b[39m \u001b[33mChipList\u001b[39m from \u001b[32m\"./Chips/Chips.jsx\"\u001b[39m\u001b[33m;\u001b[39m\n \u001b[90m  7 | \u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 | \u001b[39m\u001b[36mimport\u001b[39m \u001b[33mCoin\u001b[39m from \u001b[32m'material-ui/svg-icons/action/donut-small'\u001b[39m\u001b[33m;\u001b[39m\n \u001b[90m    | \u001b[39m       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m  9 | \u001b[39m\u001b[36mimport\u001b[39m \u001b[33mRaisedButton\u001b[39m from \u001b[32m'material-ui/RaisedButton'\u001b[39m\u001b[33m;\u001b[39m\n \u001b[90m 10 | \u001b[39m\n \u001b[90m 11 | \u001b[39m\u001b[0m\n");
 
 /***/ }),
 /* 209 */
@@ -16900,6 +16738,14 @@ var _react2 = _interopRequireDefault(_react);
 
 var _Table = __webpack_require__(331);
 
+var _donutSmall = __webpack_require__(347);
+
+var _donutSmall2 = _interopRequireDefault(_donutSmall);
+
+var _RaisedButton = __webpack_require__(98);
+
+var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -16908,10 +16754,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var TableSimple = function TableSimple(props) {
   return _react2.default.createElement(
     _Table.Table,
-    null,
+    { showCheckboxes: false },
     _react2.default.createElement(
       _Table.TableHeader,
-      null,
+      {
+        displaySelectAll: false,
+        adjustForCheckbox: false,
+        enableSelectAll: false
+      },
       _react2.default.createElement(
         _Table.TableRow,
         null,
@@ -16929,12 +16779,24 @@ var TableSimple = function TableSimple(props) {
           _Table.TableHeaderColumn,
           null,
           'Coins'
+        ),
+        _react2.default.createElement(
+          _Table.TableHeaderColumn,
+          null,
+          'Requests Pending'
+        ),
+        _react2.default.createElement(
+          _Table.TableHeaderColumn,
+          null,
+          'Deny request'
         )
       )
     ),
     _react2.default.createElement(
       _Table.TableBody,
-      null,
+      {
+        displayRowCheckbox: false
+      },
       props.allUsers.map(function (student) {
         return _react2.default.createElement(
           _Table.TableRow,
@@ -16953,6 +16815,28 @@ var TableSimple = function TableSimple(props) {
             _Table.TableRowColumn,
             null,
             student.Coin
+          ),
+          _react2.default.createElement(
+            _Table.TableRowColumn,
+            null,
+            _react2.default.createElement(_RaisedButton2.default, {
+              label: 'Approve',
+              labelPosition: 'before',
+              primary: true,
+              icon: _react2.default.createElement(_donutSmall2.default, null)
+
+            })
+          ),
+          _react2.default.createElement(
+            _Table.TableRowColumn,
+            null,
+            _react2.default.createElement(_RaisedButton2.default, {
+              label: 'Deny',
+              labelPosition: 'before',
+              primary: true,
+              icon: _react2.default.createElement(_donutSmall2.default, null)
+
+            })
           )
         );
       })
@@ -17031,7 +16915,7 @@ var DashboardPage = function (_React$Component) {
       xhr.setRequestHeader('Authorization', 'bearer ' + _Auth2.default.getToken());
       xhr.responseType = 'json';
       xhr.addEventListener('load', function () {
-        console.log(xhr.response);
+
         if (xhr.status === 200) {
           _this2.setState({
             secretData: xhr.response.message,
@@ -17054,7 +16938,7 @@ var DashboardPage = function (_React$Component) {
       xhr.setRequestHeader('Authorization', 'bearer ' + _Auth2.default.getToken());
       xhr.responseType = 'json';
       xhr.addEventListener('load', function () {
-        console.log(xhr.response);
+
         if (xhr.status === 200) {
           _this3.setState({
             allUsers: xhr.response
@@ -17201,16 +17085,21 @@ var LoginPage = function (_React$Component) {
         if (xhr.status === 200) {
           // success
 
+
           // change the component-container state
           _this2.setState({
             errors: {}
           });
 
-          // save the token
-          _Auth2.default.authenticateUser(xhr.response.token);
-
           // redirect signed in user to dashboard
-          if (_this2.state.user.email.trim().match(/.*@[a-z0-9_-]+\.edu$/i) !== null) _this2.props.history.push('/dashboard');else _this2.props.history.push('/student');
+          if (_this2.state.user.email.trim().match(/.*@[a-z0-9_-]+\.edu$/i) !== null) {
+            // save the token
+            _Auth2.default.authenticateUser(xhr.response.token, true);
+            _this2.props.history.push('/dashboard');
+          } else {
+            _Auth2.default.authenticateUser(xhr.response.token, false);
+            _this2.props.history.push('/student');
+          }
 
           // update authenticated state
           _this2.props.toggleAuthenticateStatus();
@@ -17552,7 +17441,8 @@ var StudentPage = function (_React$Component) {
     _this.state = {
       secretData: "",
       user: {},
-      allUsers: []
+      allUsers: [],
+      hasOpenRequest: false
     };
 
     _this.componentDidMount = _this.componentDidMount.bind(_this);
@@ -17569,14 +17459,16 @@ var StudentPage = function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
+      var allUsers = this.getAllUsers();
+      this.checkForOpenRequest();
       var xhr = new XMLHttpRequest();
       xhr.open("get", "/api/student");
       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       // set the authorization HTTP header
-      xhr.setRequestHeader("Authorization", "bearer " + _Auth2.default.getToken());
-      xhr.responseType = "json";
-      xhr.addEventListener("load", function () {
-        console.log(xhr.response);
+      xhr.setRequestHeader('Authorization', "bearer " + _Auth2.default.getToken());
+      xhr.responseType = 'json';
+      xhr.addEventListener('load', function () {
+
         if (xhr.status === 200) {
           _this2.setState({
             secretData: xhr.response.message,
@@ -17596,10 +17488,10 @@ var StudentPage = function (_React$Component) {
       xhr.open("get", "/api/users");
       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       // set the authorization HTTP header
-      xhr.setRequestHeader("Authorization", "bearer " + _Auth2.default.getToken());
-      xhr.responseType = "json";
-      xhr.addEventListener("load", function () {
-        console.log(xhr.response);
+      xhr.setRequestHeader('Authorization', "bearer " + _Auth2.default.getToken());
+      xhr.responseType = 'json';
+      xhr.addEventListener('load', function () {
+
         if (xhr.status === 200) {
           _this3.setState({
             allUsers: xhr.response
@@ -17640,6 +17532,27 @@ var StudentPage = function (_React$Component) {
         }
       });
       xhr.send(user);
+    }
+  }, {
+    key: "checkForOpenRequest",
+    value: function checkForOpenRequest() {
+      var _this5 = this;
+
+      var xhr = new XMLHttpRequest();
+      xhr.open('get', '/api/coin-request');
+      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+      // set the authorization HTTP header
+      xhr.setRequestHeader('Authorization', "bearer " + _Auth2.default.getToken());
+      xhr.responseType = 'json';
+      xhr.addEventListener('load', function () {
+
+        if (xhr.status === 200) {
+          _this5.setState({
+            hasOpenRequest: xhr.response.lenght > 0
+          });
+        }
+      });
+      xhr.send();
     }
 
     /**
@@ -25680,385 +25593,8 @@ exports.default = Checkbox;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 317 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends2 = __webpack_require__(12);
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _objectWithoutProperties2 = __webpack_require__(13);
-
-var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
-
-var _getPrototypeOf = __webpack_require__(7);
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = __webpack_require__(5);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(8);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(10);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(9);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _simpleAssign = __webpack_require__(6);
-
-var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(2);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _keycode = __webpack_require__(96);
-
-var _keycode2 = _interopRequireDefault(_keycode);
-
-var _colorManipulator = __webpack_require__(67);
-
-var _EnhancedButton = __webpack_require__(100);
-
-var _EnhancedButton2 = _interopRequireDefault(_EnhancedButton);
-
-var _cancel = __webpack_require__(350);
-
-var _cancel2 = _interopRequireDefault(_cancel);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function getStyles(props, context, state) {
-  var chip = context.muiTheme.chip;
-
-
-  var backgroundColor = props.backgroundColor || chip.backgroundColor;
-  var focusColor = (0, _colorManipulator.emphasize)(backgroundColor, 0.08);
-  var pressedColor = (0, _colorManipulator.emphasize)(backgroundColor, 0.12);
-
-  return {
-    avatar: {
-      marginRight: -4
-    },
-    deleteIcon: {
-      color: state.deleteHovered ? (0, _colorManipulator.fade)(chip.deleteIconColor, 0.4) : chip.deleteIconColor,
-      cursor: 'pointer',
-      margin: '4px 4px 0px -8px'
-    },
-    label: {
-      color: props.labelColor || chip.textColor,
-      fontSize: chip.fontSize,
-      fontWeight: chip.fontWeight,
-      lineHeight: '32px',
-      paddingLeft: 12,
-      paddingRight: 12,
-      userSelect: 'none',
-      whiteSpace: 'nowrap'
-    },
-    root: {
-      backgroundColor: state.clicked ? pressedColor : state.focused || state.hovered ? focusColor : backgroundColor,
-      borderRadius: 16,
-      boxShadow: state.clicked ? chip.shadow : null,
-      cursor: props.onClick ? 'pointer' : 'default',
-      display: 'flex',
-      whiteSpace: 'nowrap',
-      width: 'fit-content'
-    }
-  };
-}
-
-var Chip = function (_Component) {
-  (0, _inherits3.default)(Chip, _Component);
-
-  function Chip() {
-    var _ref;
-
-    var _temp, _this, _ret;
-
-    (0, _classCallCheck3.default)(this, Chip);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = Chip.__proto__ || (0, _getPrototypeOf2.default)(Chip)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-      clicked: false,
-      deleteHovered: false,
-      focused: false,
-      hovered: false
-    }, _this.handleBlur = function (event) {
-      _this.setState({ clicked: false, focused: false });
-      _this.props.onBlur(event);
-    }, _this.handleFocus = function (event) {
-      if (_this.props.onClick || _this.props.onRequestDelete) {
-        _this.setState({ focused: true });
-      }
-      _this.props.onFocus(event);
-    }, _this.handleKeyboardFocus = function (event, keyboardFocused) {
-      if (keyboardFocused) {
-        _this.handleFocus();
-        _this.props.onFocus(event);
-      } else {
-        _this.handleBlur();
-      }
-
-      _this.props.onKeyboardFocus(event, keyboardFocused);
-    }, _this.handleKeyDown = function (event) {
-      if ((0, _keycode2.default)(event) === 'backspace') {
-        event.preventDefault();
-        if (_this.props.onRequestDelete) {
-          _this.props.onRequestDelete(event);
-        }
-      }
-      _this.props.onKeyDown(event);
-    }, _this.handleMouseDown = function (event) {
-      // Only listen to left clicks
-      if (event.button === 0) {
-        event.stopPropagation();
-        if (_this.props.onClick) {
-          _this.setState({ clicked: true });
-        }
-      }
-      _this.props.onMouseDown(event);
-    }, _this.handleMouseEnter = function (event) {
-      if (_this.props.onClick) {
-        _this.setState({ hovered: true });
-      }
-      _this.props.onMouseEnter(event);
-    }, _this.handleMouseEnterDeleteIcon = function () {
-      _this.setState({ deleteHovered: true });
-    }, _this.handleMouseLeave = function (event) {
-      _this.setState({
-        clicked: false,
-        hovered: false
-      });
-      _this.props.onMouseLeave(event);
-    }, _this.handleMouseLeaveDeleteIcon = function () {
-      _this.setState({ deleteHovered: false });
-    }, _this.handleMouseUp = function (event) {
-      _this.setState({ clicked: false });
-      _this.props.onMouseUp(event);
-    }, _this.handleClickDeleteIcon = function (event) {
-      // Stop the event from bubbling up to the `Chip`
-      event.stopPropagation();
-      _this.props.onRequestDelete(event);
-    }, _this.handleTouchEnd = function (event) {
-      _this.setState({ clicked: false });
-      _this.props.onTouchEnd(event);
-    }, _this.handleTouchStart = function (event) {
-      event.stopPropagation();
-      if (_this.props.onClick) {
-        _this.setState({ clicked: true });
-      }
-      _this.props.onTouchStart(event);
-    }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
-  }
-
-  (0, _createClass3.default)(Chip, [{
-    key: 'render',
-    value: function render() {
-      var buttonEventHandlers = {
-        onBlur: this.handleBlur,
-        onFocus: this.handleFocus,
-        onKeyDown: this.handleKeyDown,
-        onMouseDown: this.handleMouseDown,
-        onMouseEnter: this.handleMouseEnter,
-        onMouseLeave: this.handleMouseLeave,
-        onMouseUp: this.handleMouseUp,
-        onTouchEnd: this.handleTouchEnd,
-        onTouchStart: this.handleTouchStart,
-        onKeyboardFocus: this.handleKeyboardFocus
-      };
-
-      var prepareStyles = this.context.muiTheme.prepareStyles;
-
-      var styles = getStyles(this.props, this.context, this.state);
-
-      var _props = this.props,
-          childrenProp = _props.children,
-          containerElement = _props.containerElement,
-          style = _props.style,
-          className = _props.className,
-          deleteIconStyle = _props.deleteIconStyle,
-          labelStyle = _props.labelStyle,
-          labelColor = _props.labelColor,
-          backgroundColor = _props.backgroundColor,
-          onRequestDelete = _props.onRequestDelete,
-          other = (0, _objectWithoutProperties3.default)(_props, ['children', 'containerElement', 'style', 'className', 'deleteIconStyle', 'labelStyle', 'labelColor', 'backgroundColor', 'onRequestDelete']);
-
-
-      var deletable = this.props.onRequestDelete;
-      var avatar = null;
-
-      var deleteIcon = deletable ? _react2.default.createElement(_cancel2.default, {
-        color: styles.deleteIcon.color,
-        style: (0, _simpleAssign2.default)(styles.deleteIcon, deleteIconStyle),
-        onClick: this.handleClickDeleteIcon,
-        onMouseEnter: this.handleMouseEnterDeleteIcon,
-        onMouseLeave: this.handleMouseLeaveDeleteIcon
-      }) : null;
-
-      var children = childrenProp;
-      var childCount = _react2.default.Children.count(children);
-
-      // If the first child is an avatar, extract it and style it
-      if (childCount > 1) {
-        children = _react2.default.Children.toArray(children);
-
-        if (_react2.default.isValidElement(children[0]) && children[0].type.muiName === 'Avatar') {
-          avatar = children.shift();
-
-          avatar = _react2.default.cloneElement(avatar, {
-            style: (0, _simpleAssign2.default)(styles.avatar, avatar.props.style),
-            size: 32
-          });
-        }
-      }
-
-      return _react2.default.createElement(
-        _EnhancedButton2.default,
-        (0, _extends3.default)({}, other, buttonEventHandlers, {
-          className: className,
-          containerElement: containerElement,
-          disableTouchRipple: true,
-          disableFocusRipple: true,
-          style: (0, _simpleAssign2.default)(styles.root, style)
-        }),
-        avatar,
-        _react2.default.createElement(
-          'span',
-          { style: prepareStyles((0, _simpleAssign2.default)(styles.label, labelStyle)) },
-          children
-        ),
-        deleteIcon
-      );
-    }
-  }]);
-  return Chip;
-}(_react.Component);
-
-Chip.defaultProps = {
-  containerElement: 'div', // Firefox doesn't support nested buttons
-  onBlur: function onBlur() {},
-  onFocus: function onFocus() {},
-  onKeyDown: function onKeyDown() {},
-  onKeyboardFocus: function onKeyboardFocus() {},
-  onMouseDown: function onMouseDown() {},
-  onMouseEnter: function onMouseEnter() {},
-  onMouseLeave: function onMouseLeave() {},
-  onMouseUp: function onMouseUp() {},
-  onTouchEnd: function onTouchEnd() {},
-  onTouchStart: function onTouchStart() {}
-};
-Chip.contextTypes = { muiTheme: _propTypes2.default.object.isRequired };
-Chip.propTypes = process.env.NODE_ENV !== "production" ? {
-  /**
-   * Override the background color of the chip.
-   */
-  backgroundColor: _propTypes2.default.string,
-  /**
-   * Used to render elements inside the Chip.
-   */
-  children: _propTypes2.default.node,
-  /**
-   * CSS `className` of the root element.
-   */
-  className: _propTypes2.default.node,
-  /**
-   * The element to use as the container for the Chip. Either a string to
-   * use a DOM element or a ReactElement.
-   */
-  containerElement: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.element]),
-  /**
-   * Override the inline-styles of the delete icon.
-   */
-  deleteIconStyle: _propTypes2.default.object,
-  /**
-   * Override the label color.
-   */
-  labelColor: _propTypes2.default.string,
-  /**
-   * Override the inline-styles of the label.
-   */
-  labelStyle: _propTypes2.default.object,
-  /** @ignore */
-  onBlur: _propTypes2.default.func,
-  /**
-   * Callback function fired when the `Chip` element is clicked.
-   *
-   * @param {object} event Click event targeting the element.
-   */
-  onClick: _propTypes2.default.func,
-  /** @ignore */
-  onFocus: _propTypes2.default.func,
-  /** @ignore */
-  onKeyDown: _propTypes2.default.func,
-  /** @ignore */
-  onKeyboardFocus: _propTypes2.default.func,
-  /** @ignore */
-  onMouseDown: _propTypes2.default.func,
-  /** @ignore */
-  onMouseEnter: _propTypes2.default.func,
-  /** @ignore */
-  onMouseLeave: _propTypes2.default.func,
-  /** @ignore */
-  onMouseUp: _propTypes2.default.func,
-  /**
-   * Callback function fired when the delete icon is clicked. If set, the delete icon will be shown.
-   * @param {object} event `click` event targeting the element.
-   */
-  onRequestDelete: _propTypes2.default.func,
-  /** @ignore */
-  onTouchEnd: _propTypes2.default.func,
-  /** @ignore */
-  onTouchStart: _propTypes2.default.func,
-  /**
-   * Override the inline-styles of the root element.
-   */
-  style: _propTypes2.default.object
-} : {};
-exports.default = Chip;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 318 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = undefined;
-
-var _Chip = __webpack_require__(317);
-
-var _Chip2 = _interopRequireDefault(_Chip);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = _Chip2.default;
-
-/***/ }),
+/* 317 */,
+/* 318 */,
 /* 319 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -31827,44 +31363,7 @@ HardwareKeyboardArrowUp.muiName = 'SvgIcon';
 exports.default = HardwareKeyboardArrowUp;
 
 /***/ }),
-/* 350 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _pure = __webpack_require__(52);
-
-var _pure2 = _interopRequireDefault(_pure);
-
-var _SvgIcon = __webpack_require__(45);
-
-var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var NavigationCancel = function NavigationCancel(props) {
-  return _react2.default.createElement(
-    _SvgIcon2.default,
-    props,
-    _react2.default.createElement('path', { d: 'M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z' })
-  );
-};
-NavigationCancel = (0, _pure2.default)(NavigationCancel);
-NavigationCancel.displayName = 'NavigationCancel';
-NavigationCancel.muiName = 'SvgIcon';
-
-exports.default = NavigationCancel;
-
-/***/ }),
+/* 350 */,
 /* 351 */
 /***/ (function(module, exports, __webpack_require__) {
 

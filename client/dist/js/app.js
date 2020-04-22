@@ -19002,8 +19002,9 @@ var StudentPage = function (_React$Component) {
       var _this4 = this;
 
       console.log('fired');
+      var user = this.state.user;
       var xhr = new XMLHttpRequest();
-      xhr.open("get", "/api/coin-subtraction");
+      xhr.open("post", "/api/coin-subtraction");
       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       // set the authorization HTTP header
       xhr.setRequestHeader("Authorization", "bearer " + _Auth2.default.getToken());
@@ -19016,7 +19017,7 @@ var StudentPage = function (_React$Component) {
           });
         }
       });
-      xhr.send('test=test');
+      xhr.send(user);
     }
   }, {
     key: "checkForOpenRequest",

@@ -74,8 +74,9 @@ class StudentPage extends React.Component {
 
   handleTouchTap() {
     console.log('fired');
+    const user = this.state.user;
     const xhr = new XMLHttpRequest();
-    xhr.open("get", "/api/coin-subtraction");
+    xhr.open("post", "/api/coin-subtraction");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     // set the authorization HTTP header
     xhr.setRequestHeader("Authorization", `bearer ${Auth.getToken()}`);
@@ -88,7 +89,7 @@ class StudentPage extends React.Component {
         });
       }
     });
-    xhr.send('test=test');
+    xhr.send(user);
   }
   checkForOpenRequest(){
     const xhr = new XMLHttpRequest();

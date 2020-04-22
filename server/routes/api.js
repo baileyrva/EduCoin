@@ -53,6 +53,7 @@ router.post("/coin-subtraction", (req, res) => {
     function (err, doc) {
       if (err) {
         console.log("update document error");
+        return false;
       } else {
         console.log("update document success");
 

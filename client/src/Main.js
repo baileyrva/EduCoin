@@ -136,7 +136,7 @@ class Main extends Component {
             <LoggedOutRoute path="/login" component={LoginPage} toggleAuthenticateStatus={() => this.toggleAuthenticateStatus()} />
             <LoggedOutRoute path="/signup" component={SignUpPage}/>
             <Route path="/logout" component={LogoutFunction}/>
-          </div>
+            </div>
 
         </Router>
       </MuiThemeProvider>

@@ -5,6 +5,8 @@ import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
+
+
 const LoginForm = ({
   onSubmit,
   onChange,
@@ -24,6 +26,7 @@ const LoginForm = ({
         <TextField
           floatingLabelText="Email"
           name="email"
+          // color="white"
           errorText={errors.email}
           onChange={onChange}
           value={user.email}
@@ -35,6 +38,7 @@ const LoginForm = ({
           floatingLabelText="Password"
           type="password"
           name="password"
+          // color="white"
           onChange={onChange}
           errorText={errors.password}
           value={user.password}

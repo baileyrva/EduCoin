@@ -4,20 +4,22 @@ import { Card, CardTitle, CardText } from 'material-ui/Card';
 
 import Coin from 'material-ui/svg-icons/action/donut-small';
 import RaisedButton from 'material-ui/RaisedButton';
-
+import { pink100 } from 'material-ui/styles/colors';
 
 
 const Student = ({ secretData, user, allUsers }) => (
-  <Card className="container">
+    <Card className="container" id="noBackground">
     <CardTitle
       title="Dashboard"
-      subtitle="You should get access to this page only after authentication."
+      titleColor="#ffeb3b"
+      // subtitleColor="#ffeb3b"
+      // subtitle="You should get access to this page only after authentication."
     />
-  {secretData && <CardText style={{ fontSize: '16px', color: 'green' }}>Welcome <strong>{user.name}</strong>! <br />
-  <div>Coin amount</div>
-  <div>
-     {user.Coin}
-  </div>
+  {secretData && <CardText style={{ fontSize: '16px', color: 'white' }}>Welcome <strong>{user.name}</strong>! <br />
+  
+  <br />
+   <div>Coin amount: {user.Coin}</div>
+  <br />
   <RaisedButton
       label="Request Coins"
       labelPosition="before"

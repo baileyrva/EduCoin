@@ -2,11 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import Avatar from "material-ui/Avatar";
 import Chip from "material-ui/Chip";
+
+
 import {
   orange700,
   green700,
   red400,
-  blue400,
   grey400
 } from "material-ui/styles/colors";
 
@@ -22,7 +23,8 @@ const styles = {
   },
 };
 
-const ChipList = ({ props, handleTouchTap }) => (
+const ChipList = ({ handleTouchTap }) => (
+  
   <div className="container" style={styles.wrapper}>
     <Chip
       backgroundColor={orange700}
@@ -66,9 +68,5 @@ const ChipList = ({ props, handleTouchTap }) => (
     </Chip>
   </div>
 );
-
-ChipList.propTypes = {
-  handleTouchTap: PropTypes.func.isRequired,
-};
 
 export default ChipList;

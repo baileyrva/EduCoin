@@ -4,7 +4,6 @@ const CoinRequest = require("mongoose").model("CoinRequest");
 
 const router = new express.Router();
 
-
 router.get("/dashboard", (req, res) => {
   return User.find({ isStudent: true }, function (err, docs) {
     return res.status(200).json({
@@ -40,7 +39,7 @@ router.get("/student", (req, res) => {
   });
 });
 
-router.post("/userCoinSubtraction", (req, res, next) => {
+router.post("/coin-subtraction", (req, res) => {
   User.findOneAndUpdate(
     { _id: req.user._id },
 
@@ -53,28 +52,28 @@ router.post("/userCoinSubtraction", (req, res, next) => {
         console.log("update document success");
 
         console.log(doc);
-        return true; 
+        return true;
       }
     }
   );
 });
 
 router.post("/coin-request", (req, res) => {
-  if (!req.user){
-    return res.status(401)
+  if (!req.user) {
+    return res.status(401);
   }
-  return CoinRequest.create({user: req.user._id}, function(err){
-    return res.status(200)
-  })
-})
+  return CoinRequest.create({ user: req.user._id }, function (err) {
+    return res.status(200);
+  });
+});
 
 router.get("/coin-request", (req, res) => {
-  if (!req.user){
-    return res.status(401)
+  if (!req.user) {
+    return res.status(401);
   }
-  return CoinRequest.find({user: req.user._id}, function(err, result){
-    return res.json(result)
-  })
-})
+  return CoinRequest.find({ user: req.user._id }, function (err, result) {
+    return res.json(result);
+  });
+});
 
 module.exports = router;

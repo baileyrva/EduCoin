@@ -2,6 +2,7 @@ import React from "react";
 import Auth from "../modules/Auth";
 import Student from "../components/Student.jsx";
 
+
 class StudentPage extends React.Component {
   constructor(props) {
     super(props);
@@ -72,9 +73,9 @@ class StudentPage extends React.Component {
   }
 
   handleTouchTap() {
+    console.log('fired');
     const xhr = new XMLHttpRequest();
-    const user = this.state.user;
-    xhr.open("post", "/api/userCoinSubtraction");
+    xhr.open("post", "/api/coin-subtract");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     // set the authorization HTTP header
     xhr.setRequestHeader("Authorization", `bearer ${Auth.getToken()}`);
@@ -87,7 +88,7 @@ class StudentPage extends React.Component {
         });
       }
     });
-    xhr.send(user);
+    xhr.send('test=test');
   }
   checkForOpenRequest(){
     const xhr = new XMLHttpRequest();
@@ -113,10 +114,10 @@ class StudentPage extends React.Component {
    */
   render() {
     return (
+      
       <Student
         secretData={this.state.secretData}
         user={this.state.user}
-        allUsers={this.state.allUsers}
         handleTouchTap={this.handleTouchTap}
       />
     );

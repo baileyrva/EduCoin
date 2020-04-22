@@ -5,12 +5,7 @@ import Coin from "material-ui/svg-icons/action/donut-small";
 import RaisedButton from "material-ui/RaisedButton";
 import ChipList from "./Chips/Chips.jsx";
 
-import Coin from 'material-ui/svg-icons/action/donut-small';
-import RaisedButton from 'material-ui/RaisedButton';
-
-
-
-const Student = ({ secretData, user, allUsers, handleTouchTap }) => (
+const Student = ({ secretData, user, handleTouchTap}) => (
   <Card className="container">
     <CardTitle
       title="Dashboard"
@@ -30,7 +25,7 @@ const Student = ({ secretData, user, allUsers, handleTouchTap }) => (
       icon={<Coin />}
     />
     <ChipList user={user}
-    handleTouchTap={handleTouchTap} />
+    handleTouchTap={handleTouchTap}/>
   </Card>
 );
 

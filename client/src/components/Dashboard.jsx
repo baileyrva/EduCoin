@@ -5,12 +5,13 @@ import TableSimple from './Tables.jsx';
 
 
 const Dashboard = ({ secretData, user, allUsers }) => (
-  <Card className="container">
+  <Card className="container" id="noBackground">
     <CardTitle
       title="Dashboard"
-      subtitle="You should get access to this page only after authentication."
+      titleColor="#ffeb3b"
+      // subtitle="You should get access to this page only after authentication."
     />
-  {secretData && <CardText style={{ fontSize: '16px', color: 'green' }}>Welcome <strong>{user.name}</strong>!<br />{secretData} <br />Student data <br /> </CardText>}
+  {secretData && <CardText style={{ fontSize: '16px', color: 'white' }}>Welcome <strong>{user.name}</strong>!<br />{secretData} <br />Student data <br /> </CardText>}
   
      <TableSimple allUsers={allUsers}/>
   </Card>

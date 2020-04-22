@@ -17134,14 +17134,15 @@ var Dashboard = function Dashboard(_ref) {
       allUsers = _ref.allUsers;
   return _react2.default.createElement(
     _Card.Card,
-    { className: 'container' },
+    { className: 'container', id: 'noBackground' },
     _react2.default.createElement(_Card.CardTitle, {
       title: 'Dashboard',
-      subtitle: 'You should get access to this page only after authentication.'
+      titleColor: '#ffeb3b'
+      // subtitle="You should get access to this page only after authentication."
     }),
     secretData && _react2.default.createElement(
       _Card.CardText,
-      { style: { fontSize: '16px', color: 'green' } },
+      { style: { fontSize: '16px', color: 'white' } },
       'Welcome ',
       _react2.default.createElement(
         'strong',
@@ -17218,15 +17219,19 @@ var HomePage = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         _Card.Card,
-        { className: 'container' },
-        _react2.default.createElement(_Card.CardTitle, { title: 'React Application', subtitle: 'This is the home page.' }),
+        { className: 'container', id: 'noBackground' },
+        _react2.default.createElement(_Card.CardTitle, {
+          title: 'EduCoin',
+          subtitle: 'The future of rewards based education!',
+          titleColor: '#ffeb3b',
+          subtitleColor: 'white' }),
         _Auth2.default.isUserAuthenticated() ? _react2.default.createElement(
           _Card.CardText,
-          { style: { fontSize: '16px', color: 'green' } },
+          { style: { fontSize: '16px', color: '#81d4fa' } },
           'Welcome! You are logged in.'
         ) : _react2.default.createElement(
           _Card.CardText,
-          { style: { fontSize: '16px', color: 'green' } },
+          { style: { fontSize: '16px', color: '#81d4fa' } },
           'You are not logged in.'
         )
       );
@@ -17306,8 +17311,9 @@ var LoginForm = function LoginForm(_ref) {
         { className: 'field-line' },
         _react2.default.createElement(_TextField2.default, {
           floatingLabelText: 'Email',
-          name: 'email',
-          errorText: errors.email,
+          name: 'email'
+          // color="white"
+          , errorText: errors.email,
           onChange: onChange,
           value: user.email
         })
@@ -17318,8 +17324,9 @@ var LoginForm = function LoginForm(_ref) {
         _react2.default.createElement(_TextField2.default, {
           floatingLabelText: 'Password',
           type: 'password',
-          name: 'password',
-          onChange: onChange,
+          name: 'password'
+          // color="white"
+          , onChange: onChange,
           errorText: errors.password,
           value: user.password
         })
@@ -17499,6 +17506,8 @@ var _RaisedButton = __webpack_require__(68);
 
 var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
 
+var _colors = __webpack_require__(97);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Student = function Student(_ref) {
@@ -17507,14 +17516,16 @@ var Student = function Student(_ref) {
       allUsers = _ref.allUsers;
   return _react2.default.createElement(
     _Card.Card,
-    { className: 'container' },
+    { className: 'container', id: 'noBackground' },
     _react2.default.createElement(_Card.CardTitle, {
       title: 'Dashboard',
-      subtitle: 'You should get access to this page only after authentication.'
+      titleColor: '#ffeb3b'
+      // subtitleColor="#ffeb3b"
+      // subtitle="You should get access to this page only after authentication."
     }),
     secretData && _react2.default.createElement(
       _Card.CardText,
-      { style: { fontSize: '16px', color: 'green' } },
+      { style: { fontSize: '16px', color: 'white' } },
       'Welcome ',
       _react2.default.createElement(
         'strong',
@@ -17523,16 +17534,14 @@ var Student = function Student(_ref) {
       ),
       '! ',
       _react2.default.createElement('br', null),
+      _react2.default.createElement('br', null),
       _react2.default.createElement(
         'div',
         null,
-        'Coin amount'
-      ),
-      _react2.default.createElement(
-        'div',
-        null,
+        'Coin amount: ',
         user.Coin
       ),
+      _react2.default.createElement('br', null),
       _react2.default.createElement(_RaisedButton2.default, {
         label: 'Request Coins',
         labelPosition: 'before',

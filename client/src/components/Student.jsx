@@ -8,7 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { pink100 } from 'material-ui/styles/colors';
 
 
-const Student = ({ secretData, user, allUsers }) => (
+const Student = ({ secretData, user, handleTouchTap }) => (
     <Card className="container" id="noBackground">
     <CardTitle
       title="Dashboard"

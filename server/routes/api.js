@@ -58,7 +58,7 @@ router.post("/coin-subtraction", (req, res) => {
         console.log("update document success");
 
         console.log(doc);
-        return true;
+        return req.user.Coin - 5;
       }
     }
   );

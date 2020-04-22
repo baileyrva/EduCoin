@@ -19013,7 +19013,7 @@ var StudentPage = function (_React$Component) {
         console.log(xhr.response);
         if (xhr.status === 200) {
           _this4.setState({
-            success: xhr.response
+            Coin: xhr.response
           });
         }
       });

@@ -85,7 +85,7 @@ class StudentPage extends React.Component {
       console.log(xhr.response);
       if (xhr.status === 200) {
         this.setState({
-          success: xhr.response,
+          Coin: xhr.response,
         });
       }
     });

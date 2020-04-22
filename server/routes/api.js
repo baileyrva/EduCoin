@@ -15,6 +15,11 @@ router.get("/dashboard", (req, res) => {
   });
 });
 
+router.get("/test", (req, res, next) => {
+  console.log("yes!");
+  return res.status(200).json("hello");
+});
+
 router.get("/users", (req, res, next) => {
   return User.find({}, function (err, docs) {
     return res.status(200).json(docs);

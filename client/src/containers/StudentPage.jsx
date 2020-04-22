@@ -75,7 +75,7 @@ class StudentPage extends React.Component {
   handleTouchTap() {
     console.log('fired');
     const xhr = new XMLHttpRequest();
-    xhr.open("post", "/api/coin-subtract");
+    xhr.open("get", "/api/coin-subtraction");
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     // set the authorization HTTP header
     xhr.setRequestHeader("Authorization", `bearer ${Auth.getToken()}`);

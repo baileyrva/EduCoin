@@ -7,7 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 
 
-const Student = ({ secretData, user, allUsers }) => (
+const Student = ({ CoinExchange, hasOpenRequest, secretData, user, allUsers }) => (
   <Card className="container">
     <CardTitle
       title="Dashboard"
@@ -18,13 +18,18 @@ const Student = ({ secretData, user, allUsers }) => (
   <div>
      {user.Coin}
   </div>
+  {!hasOpenRequest ? 
+   
   <RaisedButton
       label="Request Coins"
       labelPosition="before"
       primary={true}
       icon={<Coin />}
-      
-    />
+      onClick={CoinExchange}
+    /> 
+    : 
+    null
+  }
    </CardText>}
   
      

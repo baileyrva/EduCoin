@@ -18148,7 +18148,9 @@ var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Student = function Student(_ref) {
-  var secretData = _ref.secretData,
+  var CoinExchange = _ref.CoinExchange,
+      hasOpenRequest = _ref.hasOpenRequest,
+      secretData = _ref.secretData,
       user = _ref.user,
       allUsers = _ref.allUsers;
   return _react2.default.createElement(
@@ -18179,13 +18181,13 @@ var Student = function Student(_ref) {
         null,
         user.Coin
       ),
-      _react2.default.createElement(_RaisedButton2.default, {
+      !hasOpenRequest ? _react2.default.createElement(_RaisedButton2.default, {
         label: 'Request Coins',
         labelPosition: 'before',
         primary: true,
-        icon: _react2.default.createElement(_donutSmall2.default, null)
-
-      })
+        icon: _react2.default.createElement(_donutSmall2.default, null),
+        onClick: CoinExchange
+      }) : null
     )
   );
 };
@@ -18897,6 +18899,7 @@ var StudentPage = function (_React$Component) {
       allUsers: [],
       hasOpenRequest: false
     };
+    _this.requestCoins = _this.requestCoins.bind(_this);
     return _this;
   }
 
@@ -18965,11 +18968,35 @@ var StudentPage = function (_React$Component) {
 
         if (xhr.status === 200) {
           _this4.setState({
-            hasOpenRequest: xhr.response.lenght > 0
+            hasOpenRequest: xhr.response.length > 0
           });
         }
       });
       xhr.send();
+    }
+  }, {
+    key: 'requestCoins',
+    value: function requestCoins() {
+      var _this5 = this;
+
+      console.log('fired');
+      var xhr = new XMLHttpRequest();
+      xhr.open('post', '/api/coin-request');
+      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+      // set the authorization HTTP header
+      xhr.setRequestHeader('Authorization', 'bearer ' + _Auth2.default.getToken());
+      xhr.responseType = 'json';
+      xhr.addEventListener('load', function () {
+
+        if (xhr.status === 200) {
+          console.log(_this5);
+          console.log(_this5.state);
+          _this5.setState({
+            hasOpenRequest: true
+          });
+        }
+      });
+      xhr.send('test=test');
     }
 
     /**
@@ -18979,7 +19006,7 @@ var StudentPage = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      return _react2.default.createElement(_Student2.default, { secretData: this.state.secretData, user: this.state.user, allUsers: this.state.allUsers });
+      return _react2.default.createElement(_Student2.default, { CoinExchange: this.requestCoins, hasOpenRequest: this.state.hasOpenRequest, secretData: this.state.secretData, user: this.state.user, allUsers: this.state.allUsers });
     }
   }]);
 

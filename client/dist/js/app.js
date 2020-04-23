@@ -17691,8 +17691,8 @@ var styles = {
   },
   wrapper: {
     display: "flex",
-    paddingTop: '4rem',
-    marginLeft: '7rem',
+    paddingTop: "4rem",
+    marginLeft: "7rem",
     flexWrap: "wrap"
   }
 };
@@ -17705,6 +17705,7 @@ var ChipList = function ChipList(_ref) {
     _react2.default.createElement(
       _Chip2.default,
       {
+        className: "Chip",
         backgroundColor: _colors.orange700,
         onClick: handleTouchTap,
         style: styles.chip

@@ -2,8 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import Avatar from "material-ui/Avatar";
 import Chip from "material-ui/Chip";
-
-
 import {
   orange700,
   green700,
@@ -17,16 +15,16 @@ const styles = {
   },
   wrapper: {
     display: "flex",
-    paddingTop: '4rem',
-    marginLeft: '7rem',
+    paddingTop: "4rem",
+    marginLeft: "7rem",
     flexWrap: "wrap",
   },
 };
 
 const ChipList = ({ handleTouchTap }) => (
-  
   <div className="container" style={styles.wrapper}>
     <Chip
+      className="Chip"
       backgroundColor={orange700}
       onClick={handleTouchTap}
       style={styles.chip}

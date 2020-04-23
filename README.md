@@ -1,61 +1,25 @@
-# React Passport Example Application
+# EduCoin
+This repository ("EduCoin") is an application that gives students a chance to earn their share of a digital currency while participating in their daily school lives. After earning currency the students can use it to purchase rewards or save it for future financial opportunities. 
 
-An example application which combines a back-end which stores user data and front-end React.js application which handles user authentication sessions.
-
-This application be easily separated into two completely different repositories.
-
-Created using the tutorials below:
-
-https://vladimirponomarev.com/blog/authentication-in-react-apps-creating-components
-https://vladimirponomarev.com/blog/authentication-in-react-apps-jwt
-
-However, this version has replaced the React Router v3 which were used in the above tutorials with the most recent React Router v4 which has some major differences. I also made some minor tweaks to account for the NPM packages which had issues due to updates since the tutorial was published.
-
-This application incorporates the following packages:
-
-- axios
-- bcryptjs
-- jsonwebtoken
-- mongoose
-- passport
-- react-router-dom
-- validator
 
 ## Installation
 
-After cloning the repo, follow the steps below:
-```sh
-$ cd react-passport-example
-```
-```sh
-$ yarn install
-```
-```sh
-$ sudo mongod
-```
-```sh
-$ yarn run dev
-```
+The application is deployed using github and heroku. The main pages can be opened in the browser. As a first time user they will signup as either a student or teacher. Afterwards, the teacher view will show the entire database, while the student's page will only display their individual record. 
 
-When editing the files, run the following command for webpack to watch your files and bundle whenever changes are made:
-```sh
-$ yarn run bundle
-```
+## User Story
+**As a** financially curious student\
+**I want** to earn digital currency\
+**So that** I can learn strong financial practices early in life.  
 
-## Screenshots
+## Built With
+[Node.js](https://nodejs.org/en/docs/) -Backend development language\
+[Material-UI](https://v0.material-ui.com/#/components/app-bar) -Page design template\
+[Passport.js](http://www.passportjs.org/docs/) -Middleware authentication\
+[React.js](https://reactjs.org/docs/getting-started.html) -JavaScript library for building user interfaces\
+[JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) -Frontend development language and server usage
 
-Home page before login:
+## Credits
 
-![Alt Home Page](/README/home.png?raw=true)
+Joe Bailey, Nathan Olenik, and Rob Quinn created this by focusing on different parts of the overall application. Joe focused on the data entry, presentation, reward routes, and tweaking the backend. Nathan developed the majority of the table design, components, data schematics, and researched troubleshooting techniques for the backend of the application. Rob did a lot of the routing, database manipulation, design, and overall deployment. 
 
-Sign up page:
-
-![Alt Signup Page](/README/signup.png?raw=true)
-
-Login page:
-
-![Alt Login Page](/README/login.png?raw=true)
-
-Dashboard which is only accessible after login:
-
-![Alt Dashboard](/README/dashboard.png?raw=true)
+![](eduCoinDemo.gif)

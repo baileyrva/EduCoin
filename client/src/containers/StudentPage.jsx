@@ -11,7 +11,8 @@ class StudentPage extends React.Component {
       secretData: "",
       user: {},
       allUsers: [],
-      hasOpenRequest: false
+      hasOpenRequest: false,
+      coin: 0
     };
 
     this.componentDidMount = this.componentDidMount.bind(this);
@@ -39,6 +40,7 @@ class StudentPage extends React.Component {
           secretData: xhr.response.message,
           user: xhr.response.user,
           allUsers: xhr.response.students,
+          coin: xhr.response.user.Coin
         });
       }
     });
@@ -87,7 +89,8 @@ class StudentPage extends React.Component {
       console.log(xhr.response);
       if (xhr.status === 200) {
         this.setState({
-          Coin: xhr.response,
+          coin: xhr.response.Coin,
+
         });
       }
     });
@@ -138,7 +141,7 @@ class StudentPage extends React.Component {
    * Render the component.
    */
   render() {
-    return (<Student handleTouchTap={this.handleTouchTap} CoinExchange={this.requestCoins} hasOpenRequest={this.state.hasOpenRequest} secretData={this.state.secretData} user={this.state.user} allUsers={this.state.allUsers} />);
+    return (<Student handleTouchTap={this.handleTouchTap} CoinExchange={this.requestCoins} hasOpenRequest={this.state.hasOpenRequest} secretData={this.state.secretData} coin={this.state.coin} user={this.state.user} allUsers={this.state.allUsers} />);
   }
 }
 

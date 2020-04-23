@@ -18170,7 +18170,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Student = function Student(_ref) {
   var secretData = _ref.secretData,
       user = _ref.user,
-      handleTouchTap = _ref.handleTouchTap;
+      handleTouchTap = _ref.handleTouchTap,
+      coin = _ref.coin;
   return _react2.default.createElement(
     _Card.Card,
     { className: "container" },
@@ -18197,7 +18198,7 @@ var Student = function Student(_ref) {
       _react2.default.createElement(
         "div",
         null,
-        user.Coin
+        coin
       )
     ),
     _react2.default.createElement(_RaisedButton2.default, {
@@ -18938,7 +18939,8 @@ var StudentPage = function (_React$Component) {
       secretData: "",
       user: {},
       allUsers: [],
-      hasOpenRequest: false
+      hasOpenRequest: false,
+      coin: 0
     };
 
     _this.componentDidMount = _this.componentDidMount.bind(_this);
@@ -18970,7 +18972,8 @@ var StudentPage = function (_React$Component) {
           _this2.setState({
             secretData: xhr.response.message,
             user: xhr.response.user,
-            allUsers: xhr.response.students
+            allUsers: xhr.response.students,
+            coin: xhr.response.user.Coin
           });
         }
       });
@@ -19025,7 +19028,8 @@ var StudentPage = function (_React$Component) {
         console.log(xhr.response);
         if (xhr.status === 200) {
           _this4.setState({
-            Coin: xhr.response
+            coin: xhr.response.Coin
+
           });
         }
       });
@@ -19084,7 +19088,7 @@ var StudentPage = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return _react2.default.createElement(_Student2.default, { handleTouchTap: this.handleTouchTap, CoinExchange: this.requestCoins, hasOpenRequest: this.state.hasOpenRequest, secretData: this.state.secretData, user: this.state.user, allUsers: this.state.allUsers });
+      return _react2.default.createElement(_Student2.default, { handleTouchTap: this.handleTouchTap, CoinExchange: this.requestCoins, hasOpenRequest: this.state.hasOpenRequest, secretData: this.state.secretData, coin: this.state.coin, user: this.state.user, allUsers: this.state.allUsers });
     }
   }]);
 

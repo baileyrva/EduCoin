@@ -49,29 +49,18 @@ router.post("/coin-subtraction", (req, res) => {
     { _id: req.user._id },
 
     { $set: { Coin: req.user.Coin - 5 } },
-
-    function (err, doc) {
-      if (err) {
-        console.log("update document error");
-        return false;
-      } else {
-        console.log("update document success");
-
-        console.log(doc);
-        return req.user.Coin - 5;
-      }
-    }
-  );
+  ).then(result => res.json(result))
+  .catch(err => res.status(422).json(err));
 });
 
 router.post("/coin-request", (req, res) => {
   if (!req.user) {
     return res.status(401);
   }
-  return CoinRequest.create({user: req.user._id}, function(err, result){
-    return res.status(200).json(result)
-  })
-})
+  return CoinRequest.create({ user: req.user._id }, function (err, result) {
+    return res.status(200).json(result);
+  });
+});
 
 router.get("/coin-request", (req, res) => {
   if (!req.user) {
@@ -81,6 +70,5 @@ router.get("/coin-request", (req, res) => {
     return res.json(result);
   });
 });
-
 
 module.exports = router;

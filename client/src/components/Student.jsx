@@ -5,7 +5,7 @@ import Coin from "material-ui/svg-icons/action/donut-small";
 import RaisedButton from "material-ui/RaisedButton";
 import ChipList from "./Chips/Chips.jsx";
 
-const Student = ({ secretData, user, handleTouchTap}) => (
+const Student = ({ secretData, user, handleTouchTap, coin}) => (
   <Card className="container">
     <CardTitle
       title="Dashboard"
@@ -15,7 +15,7 @@ const Student = ({ secretData, user, handleTouchTap}) => (
       <CardText style={{ fontSize: "16px", color: "green" }}>
         Welcome <strong>{user.name}</strong>! <br />
         <div>Coin amount</div>
-        <div>{user.Coin}</div>
+        <div>{coin}</div>
       </CardText>
     )}
     <RaisedButton

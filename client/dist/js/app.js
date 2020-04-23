@@ -17800,7 +17800,7 @@ var Dashboard = function Dashboard(_ref) {
     _react2.default.createElement(_Card.CardTitle, {
       title: "Dashboard",
       titleColor: "#ffeb3b"
-      // subtitle="You should get access to this page only after authentication."
+
     }),
     secretData && _react2.default.createElement(
       _Card.CardText,
@@ -18186,7 +18186,7 @@ var Student = function Student(_ref) {
     { className: "container", id: "noBackground" },
     _react2.default.createElement(_Card.CardTitle, {
       title: "Dashboard",
-      subtitle: "You should get access to this page only after authentication."
+      titleColor: "#ffeb3b"
     }),
     secretData && _react2.default.createElement(
       _Card.CardText,

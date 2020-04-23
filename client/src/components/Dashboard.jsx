@@ -9,7 +9,7 @@ const Dashboard = ({ secretData, user, allUsers }) => (
     <CardTitle
       title="Dashboard"
       titleColor="#ffeb3b"
-      // subtitle="You should get access to this page only after authentication."
+      
     />
   {secretData && <CardText style={{ fontSize: '16px', color: 'white' }}>Welcome <strong>{user.name}</strong>!<br />{secretData} <br />Student data <br /> </CardText>}
   

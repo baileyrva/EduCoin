@@ -9,7 +9,7 @@ const Student = ({ secretData, user, handleTouchTap, coin, CoinExchange, hasOpen
   <Card className="container" id="noBackground">
     <CardTitle
       title="Dashboard"
-      subtitle="You should get access to this page only after authentication."
+      titleColor="#ffeb3b"
     />
     {secretData && (
       <CardText style={{ fontSize: "16px", color: "white" }}>

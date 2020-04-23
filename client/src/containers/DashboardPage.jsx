@@ -23,7 +23,7 @@ class DashboardPage extends React.Component {
    */
   
   componentDidMount() {
-    var allUsers = this.getAllUsers()
+    
     const xhr = new XMLHttpRequest();
     xhr.open('get', '/api/dashboard');
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -43,25 +43,9 @@ class DashboardPage extends React.Component {
     xhr.send();
   }
 
-  getAllUsers() {
-    
-    const xhr = new XMLHttpRequest();
-    xhr.open('get', '/api/users');
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    // set the authorization HTTP header
-    xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
-    xhr.responseType = 'json';
-    xhr.addEventListener('load', () => {
-       
-      if (xhr.status === 200) {
-        this.setState({
-          allUsers: xhr.response
-        });
-      }
+  
 
-    });
-    xhr.send();
-  }
+  
 
   /**
    * Render the component.

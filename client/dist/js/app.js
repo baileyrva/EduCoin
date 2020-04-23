@@ -18307,24 +18307,24 @@ var TableSimple = function TableSimple(props) {
           _react2.default.createElement(
             _Table.TableRowColumn,
             null,
-            _react2.default.createElement(_RaisedButton2.default, {
+            student.pendingRequest ? _react2.default.createElement(_RaisedButton2.default, {
               label: 'Approve',
               labelPosition: 'before',
               primary: true,
               icon: _react2.default.createElement(_donutSmall2.default, null)
 
-            })
+            }) : ''
           ),
           _react2.default.createElement(
             _Table.TableRowColumn,
             null,
-            _react2.default.createElement(_RaisedButton2.default, {
+            student.pendingRequest ? _react2.default.createElement(_RaisedButton2.default, {
               label: 'Deny',
               labelPosition: 'before',
               primary: true,
               icon: _react2.default.createElement(_donutSmall2.default, null)
 
-            })
+            }) : ''
           )
         );
       })
@@ -18395,7 +18395,6 @@ var DashboardPage = function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      var allUsers = this.getAllUsers();
       var xhr = new XMLHttpRequest();
       xhr.open('get', '/api/dashboard');
       xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -18409,27 +18408,6 @@ var DashboardPage = function (_React$Component) {
             secretData: xhr.response.message,
             user: xhr.response.user,
             allUsers: xhr.response.students
-          });
-        }
-      });
-      xhr.send();
-    }
-  }, {
-    key: 'getAllUsers',
-    value: function getAllUsers() {
-      var _this3 = this;
-
-      var xhr = new XMLHttpRequest();
-      xhr.open('get', '/api/users');
-      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-      // set the authorization HTTP header
-      xhr.setRequestHeader('Authorization', 'bearer ' + _Auth2.default.getToken());
-      xhr.responseType = 'json';
-      xhr.addEventListener('load', function () {
-
-        if (xhr.status === 200) {
-          _this3.setState({
-            allUsers: xhr.response
           });
         }
       });

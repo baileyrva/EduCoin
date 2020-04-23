@@ -38,21 +38,29 @@ const TableSimple = (props) => (
             <TableRowColumn>{student.email}</TableRowColumn>
             <TableRowColumn>{student.Coin}</TableRowColumn>
             <TableRowColumn>
+              {student.pendingRequest ? 
+              (
               <RaisedButton
               label="Approve"
               labelPosition="before"
               primary={true}
               icon={<Coin />}
 
-            /></TableRowColumn>
+            />
+              ) : '' }
+            </TableRowColumn>
             <TableRowColumn>
+              {student.pendingRequest ?
+              (
               <RaisedButton
               label="Deny"
               labelPosition="before"
               primary={true}
               icon={<Coin />}
 
-            /></TableRowColumn>
+            />
+              ) : '' }
+            </TableRowColumn>
           </TableRow>
         )
       })}

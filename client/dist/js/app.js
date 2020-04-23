@@ -18178,17 +18178,19 @@ var Student = function Student(_ref) {
   var secretData = _ref.secretData,
       user = _ref.user,
       handleTouchTap = _ref.handleTouchTap,
-      coin = _ref.coin;
+      coin = _ref.coin,
+      CoinExchange = _ref.CoinExchange,
+      hasOpenRequest = _ref.hasOpenRequest;
   return _react2.default.createElement(
     _Card.Card,
-    { className: "container" },
+    { className: "container", id: "noBackground" },
     _react2.default.createElement(_Card.CardTitle, {
       title: "Dashboard",
       subtitle: "You should get access to this page only after authentication."
     }),
     secretData && _react2.default.createElement(
       _Card.CardText,
-      { style: { fontSize: "16px", color: "green" } },
+      { style: { fontSize: "16px", color: "white" } },
       "Welcome ",
       _react2.default.createElement(
         "strong",
@@ -18200,22 +18202,18 @@ var Student = function Student(_ref) {
       _react2.default.createElement(
         "div",
         null,
-        "Coin amount"
-      ),
-      _react2.default.createElement(
-        "div",
-        null,
+        "Coin amount: ",
         coin
       )
     ),
-    _react2.default.createElement(_RaisedButton2.default, {
+    !hasOpenRequest ? _react2.default.createElement(_RaisedButton2.default, {
       label: "Request Coins",
       labelPosition: "before",
       primary: true,
-      icon: _react2.default.createElement(_donutSmall2.default, null)
-    }),
-    _react2.default.createElement(_Chips2.default, { user: user,
-      handleTouchTap: handleTouchTap })
+      icon: _react2.default.createElement(_donutSmall2.default, null),
+      onClick: CoinExchange
+    }) : null,
+    _react2.default.createElement(_Chips2.default, { user: user, handleTouchTap: handleTouchTap })
   );
 };
 

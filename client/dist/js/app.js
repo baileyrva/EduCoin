@@ -18152,10 +18152,6 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _Card = __webpack_require__(61);
 
-var _Chips = __webpack_require__(199);
-
-var _Chips2 = _interopRequireDefault(_Chips);
-
 var _donutSmall = __webpack_require__(154);
 
 var _donutSmall2 = _interopRequireDefault(_donutSmall);
@@ -18164,7 +18160,9 @@ var _RaisedButton = __webpack_require__(69);
 
 var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
 
-var _colors = __webpack_require__(62);
+var _Chips = __webpack_require__(199);
+
+var _Chips2 = _interopRequireDefault(_Chips);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -18174,16 +18172,14 @@ var Student = function Student(_ref) {
       handleTouchTap = _ref.handleTouchTap;
   return _react2.default.createElement(
     _Card.Card,
-    { className: "container", id: "noBackground" },
+    { className: "container" },
     _react2.default.createElement(_Card.CardTitle, {
       title: "Dashboard",
-      titleColor: "#ffeb3b"
-      // subtitleColor="#ffeb3b"
-      // subtitle="You should get access to this page only after authentication."
+      subtitle: "You should get access to this page only after authentication."
     }),
     secretData && _react2.default.createElement(
       _Card.CardText,
-      { style: { fontSize: '16px', color: 'white' } },
+      { style: { fontSize: "16px", color: "green" } },
       "Welcome ",
       _react2.default.createElement(
         "strong",
@@ -18192,23 +18188,25 @@ var Student = function Student(_ref) {
       ),
       "! ",
       _react2.default.createElement("br", null),
-      _react2.default.createElement("br", null),
       _react2.default.createElement(
         "div",
         null,
-        "Coin amount: ",
-        user.Coin
+        "Coin amount"
       ),
-      _react2.default.createElement("br", null),
-      _react2.default.createElement(_RaisedButton2.default, {
-        label: "Request Coins",
-        labelPosition: "before",
-        primary: true,
-        icon: _react2.default.createElement(_donutSmall2.default, null)
-      }),
-      _react2.default.createElement(_Chips2.default, { user: user,
-        handleTouchTap: handleTouchTap })
-    )
+      _react2.default.createElement(
+        "div",
+        null,
+        user.Coin
+      )
+    ),
+    _react2.default.createElement(_RaisedButton2.default, {
+      label: "Request Coins",
+      labelPosition: "before",
+      primary: true,
+      icon: _react2.default.createElement(_donutSmall2.default, null)
+    }),
+    _react2.default.createElement(_Chips2.default, { user: user,
+      handleTouchTap: handleTouchTap })
   );
 };
 
@@ -18944,6 +18942,7 @@ var StudentPage = function (_React$Component) {
 
     _this.componentDidMount = _this.componentDidMount.bind(_this);
     _this.handleTouchTap = _this.handleTouchTap.bind(_this);
+    _this.requestCoins = _this.requestCoins.bind(_this);
     return _this;
   }
 
@@ -19046,11 +19045,35 @@ var StudentPage = function (_React$Component) {
 
         if (xhr.status === 200) {
           _this5.setState({
-            hasOpenRequest: xhr.response.lenght > 0
+            hasOpenRequest: xhr.response.length > 0
           });
         }
       });
       xhr.send();
+    }
+  }, {
+    key: "requestCoins",
+    value: function requestCoins() {
+      var _this6 = this;
+
+      console.log('fired');
+      var xhr = new XMLHttpRequest();
+      xhr.open('post', '/api/coin-request');
+      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+      // set the authorization HTTP header
+      xhr.setRequestHeader('Authorization', "bearer " + _Auth2.default.getToken());
+      xhr.responseType = 'json';
+      xhr.addEventListener('load', function () {
+
+        if (xhr.status === 200) {
+          console.log(_this6);
+          console.log(_this6.state);
+          _this6.setState({
+            hasOpenRequest: true
+          });
+        }
+      });
+      xhr.send('test=test');
     }
 
     /**
@@ -19060,11 +19083,7 @@ var StudentPage = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return _react2.default.createElement(_Student2.default, {
-        secretData: this.state.secretData,
-        user: this.state.user,
-        handleTouchTap: this.handleTouchTap
-      });
+      return _react2.default.createElement(_Student2.default, { handleTouchTap: this.handleTouchTap, CoinExchange: this.requestCoins, hasOpenRequest: this.state.hasOpenRequest, secretData: this.state.secretData, user: this.state.user, allUsers: this.state.allUsers });
     }
   }]);
 

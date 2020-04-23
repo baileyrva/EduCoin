@@ -16,6 +16,7 @@ class StudentPage extends React.Component {
 
     this.componentDidMount = this.componentDidMount.bind(this);
     this.handleTouchTap = this.handleTouchTap.bind(this);
+    this.requestCoins = this.requestCoins.bind(this);
   }
 
   /**
@@ -42,6 +43,7 @@ class StudentPage extends React.Component {
       }
     });
     xhr.send();
+    
   }
 
   getAllUsers() {
@@ -102,7 +104,7 @@ class StudentPage extends React.Component {
        
       if (xhr.status === 200) {
         this.setState({
-          hasOpenRequest: xhr.response.lenght > 0
+          hasOpenRequest: xhr.response.length > 0
         });
       }
 
@@ -110,18 +112,33 @@ class StudentPage extends React.Component {
     xhr.send();
   } 
 
+  requestCoins(){
+    console.log('fired');
+    const xhr = new XMLHttpRequest();
+    xhr.open('post', '/api/coin-request');
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    // set the authorization HTTP header
+    xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+       
+      if (xhr.status === 200) {
+        console.log(this)
+        console.log(this.state)
+        this.setState({
+          hasOpenRequest: true
+        });
+      }
+
+    });
+    xhr.send('test=test');
+  }
+
   /**
    * Render the component.
    */
   render() {
-    return (
-      
-      <Student
-        secretData={this.state.secretData}
-        user={this.state.user}
-        handleTouchTap={this.handleTouchTap}
-      />
-    );
+    return (<Student handleTouchTap={this.handleTouchTap} CoinExchange={this.requestCoins} hasOpenRequest={this.state.hasOpenRequest} secretData={this.state.secretData} user={this.state.user} allUsers={this.state.allUsers} />);
   }
 }
 

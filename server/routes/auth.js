@@ -59,6 +59,7 @@ function validateLoginForm(payload) {
   if (!payload || typeof payload.email !== 'string' || payload.email.trim().length === 0) {
     isFormValid = false;
     errors.email = 'Please provide your email address.';
+    
   }
 
   if (!payload || typeof payload.password !== 'string' || payload.password.trim().length === 0) {
@@ -69,7 +70,7 @@ function validateLoginForm(payload) {
   if (!isFormValid) {
     message = 'Check the form for errors.';
   }
-
+  
   return {
     success: isFormValid,
     message,
@@ -116,6 +117,7 @@ router.post('/signup', (req, res, next) => {
 });
 
 router.post('/login', (req, res, next) => {
+  
   const validationResult = validateLoginForm(req.body);
   if (!validationResult.success) {
     return res.status(400).json({

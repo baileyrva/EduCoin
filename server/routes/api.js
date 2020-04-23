@@ -68,10 +68,10 @@ router.post("/coin-request", (req, res) => {
   if (!req.user) {
     return res.status(401);
   }
-  return CoinRequest.create({ user: req.user._id }, function (err) {
-    return res.status(200);
-  });
-});
+  return CoinRequest.create({user: req.user._id}, function(err, result){
+    return res.status(200).json(result)
+  })
+})
 
 router.get("/coin-request", (req, res) => {
   if (!req.user) {

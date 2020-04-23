@@ -5,24 +5,38 @@ const CoinRequest = require("mongoose").model("CoinRequest");
 const router = new express.Router();
 
 router.get("/dashboard", (req, res) => {
-  return User.find({ isStudent: true }, function (err, docs) {
-    return res.status(200).json({
-      message: "You're authorized to see this teacher dashboard.",
-      // user values passed through from auth middleware
-      user: req.user,
-      students: docs,
-    });
-  });
+  let allUsers = [];
+  return User.find({isStudent:true}, function(err, docs) {
+    docs.forEach(async (user, i) => {
+      user.pendingRequest = await CoinRequest.find({status: 'pending'});
+      allUsers.push(user);
+      if (docs.length === i+ 1){
+       return res.status(200).json({
+        message: "You're authorized to see this teacher dashboard.",
+        // user values passed through from auth middleware
+        user: req.user,
+        students: allUsers
+       });
+
+      }
+    })
+     
+  }) 
 });
 
-router.get("/test", (req, res, next) => {
-  console.log("yes!");
-  return res.status(200).json("hello");
-});
-
-router.get("/users", (req, res, next) => {
-  return User.find({}, function (err, docs) {
-    return res.status(200).json(docs);
+router.get("/users",  (req, res) => {
+  console.log("test");
+  let allUsers = [];
+  return User.find({}, async function (err, docs) {
+    console.log(docs);
+   docs.forEach(async (user, i) => {
+     user.pendingRequest = await CoinRequest.find({status: 'pending'});
+     allUsers.push(user);
+     if (docs.length === i+ 1){
+      return res.status(200).json(allUsers);
+     }
+   })
+    
   });
 });
 

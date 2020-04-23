@@ -6,7 +6,7 @@ import {
   orange700,
   green700,
   red400,
-  grey400
+  grey400,
 } from "material-ui/styles/colors";
 
 const styles = {
@@ -36,6 +36,7 @@ const ChipList = ({ handleTouchTap }) => (
       Cheetos!
     </Chip>
     <Chip
+      className="Chip"
       backgroundColor={green700}
       onClick={handleTouchTap}
       style={styles.chip}
@@ -46,7 +47,12 @@ const ChipList = ({ handleTouchTap }) => (
       />
       Green Time!
     </Chip>
-    <Chip backgroundColor={red400} onClick={handleTouchTap} style={styles.chip}>
+    <Chip
+      className="Chip"
+      backgroundColor={red400}
+      onClick={handleTouchTap}
+      style={styles.chip}
+    >
       <Avatar
         size={32}
         src="https://imagesvc.meredithcorp.io/v3/mm/image?url=https://static.onecms.io/wp-content/uploads/sites/9/2019/10/halloween-candy-taste-test-ft-blog1019.jpg"
@@ -54,6 +60,7 @@ const ChipList = ({ handleTouchTap }) => (
       Candy!
     </Chip>
     <Chip
+      className="Chip"
       backgroundColor={grey400}
       onClick={handleTouchTap}
       style={styles.chip}

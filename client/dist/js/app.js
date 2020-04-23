@@ -17719,6 +17719,7 @@ var ChipList = function ChipList(_ref) {
     _react2.default.createElement(
       _Chip2.default,
       {
+        className: "Chip",
         backgroundColor: _colors.green700,
         onClick: handleTouchTap,
         style: styles.chip
@@ -17731,7 +17732,12 @@ var ChipList = function ChipList(_ref) {
     ),
     _react2.default.createElement(
       _Chip2.default,
-      { backgroundColor: _colors.red400, onClick: handleTouchTap, style: styles.chip },
+      {
+        className: "Chip",
+        backgroundColor: _colors.red400,
+        onClick: handleTouchTap,
+        style: styles.chip
+      },
       _react2.default.createElement(_Avatar2.default, {
         size: 32,
         src: "https://imagesvc.meredithcorp.io/v3/mm/image?url=https://static.onecms.io/wp-content/uploads/sites/9/2019/10/halloween-candy-taste-test-ft-blog1019.jpg"
@@ -17741,6 +17747,7 @@ var ChipList = function ChipList(_ref) {
     _react2.default.createElement(
       _Chip2.default,
       {
+        className: "Chip",
         backgroundColor: _colors.grey400,
         onClick: handleTouchTap,
         style: styles.chip

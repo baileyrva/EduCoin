@@ -106,6 +106,7 @@ class StudentPage extends React.Component {
     xhr.addEventListener('load', () => {
        
       if (xhr.status === 200) {
+        console.log(xhr.response);
         this.setState({
           hasOpenRequest: xhr.response.length > 0
         });

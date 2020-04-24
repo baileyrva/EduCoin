@@ -8,7 +8,9 @@ router.get("/dashboard", (req, res) => {
   let allUsers = [];
   return User.find({isStudent:true}, function(err, docs) {
     docs.forEach(async (user, i) => {
-      user.pendingRequest = await CoinRequest.find({status: 'pending'});
+      const coinZ = await CoinRequest.find({user: user._id});
+      console.log(coinZ);
+      user.pendingRequest = true;
       allUsers.push(user);
       if (docs.length === i+ 1){
        return res.status(200).json({
@@ -64,6 +66,24 @@ router.post("/coin-subtraction", (req, res) => {
 
     { $set: { Coin: req.user.Coin - 5 } },
   ).then(result => res.json(result))
+  .catch(err => res.status(422).json(err));
+});
+
+router.post("/coin-approve", (req, res) => {
+  console.log(req.body);
+  User.findOneAndUpdate(
+    { _id: req.body._id },
+
+    { $set: { Coin: Number(req.body.Coin) + 100 } },
+  ).then(result => {
+    result.Coin = Number(req.body.Coin) + 100;
+    
+    CoinRequest.findOneAndUpdate({ user: req.body._id }, 
+      { $set: { status:  'approved' } }, {new: true}, function (err, coinResult){
+       console.log(coinResult);
+       res.json(result);
+    })
+  }) 
   .catch(err => res.status(422).json(err));
 });
 

@@ -19,7 +19,7 @@ function validateSignupForm(payload) {
 
   if (!payload || typeof payload.email !== 'string' || !validator.isEmail(payload.email) || validEmail.exec(payload.email)=== null) {
     isFormValid = false;
-    errors.email = 'Please provide a correct email address.';
+    errors.email = 'Teachers should use their .edu address. Students should use .stu';
     
   }
 

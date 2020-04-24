@@ -6,6 +6,10 @@ body {
   flex-direction: column;
 }
 
+* {
+  font-family: 'Fredericka the Great', cursive;
+}
+
 a {
   color: #00bcd4;
   font-weight: bold;

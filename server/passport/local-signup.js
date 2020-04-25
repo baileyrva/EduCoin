@@ -18,8 +18,8 @@ module.exports = new PassportLocalStrategy({
     name: req.body.name.trim(),
     isTeacher, 
     isStudent, 
-    Coin: isStudent ? 100 : 0
-  };
+    Coin: isStudent ? 100 : 0,
+    };
 
   const newUser = new User(userData);
   newUser.save((err) => {

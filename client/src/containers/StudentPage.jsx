@@ -108,7 +108,7 @@ class StudentPage extends React.Component {
       if (xhr.status === 200) {
         console.log(xhr.response);
         this.setState({
-          hasOpenRequest: xhr.response.length > 0
+          hasOpenRequest: xhr.response.pendingRequest
         });
       }
 
@@ -117,7 +117,8 @@ class StudentPage extends React.Component {
   } 
 
   requestCoins(){
-    console.log('fired');
+    console.log('plus');
+    const user = this.state.user;
     const xhr = new XMLHttpRequest();
     xhr.open('post', '/api/coin-request');
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -127,15 +128,15 @@ class StudentPage extends React.Component {
     xhr.addEventListener('load', () => {
        
       if (xhr.status === 200) {
-        console.log(this)
-        console.log(this.state)
-        this.setState({
-          hasOpenRequest: true
+        user.pendingRequest= true
+        console.log(xhr.response);
+         this.setState({
+          hasOpenRequest: xhr.response.pendingRequest,
+          
         });
       }
-
     });
-    xhr.send('test=test');
+    xhr.send(user);
   }
 
   /**

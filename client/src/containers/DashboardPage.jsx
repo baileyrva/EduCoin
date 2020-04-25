@@ -63,6 +63,7 @@ class DashboardPage extends React.Component {
            if(Stus._id === user._id){
 
              Stus.Coin = xhr.response.Coin;
+             Stus.pendingRequest = false;
              Usermemory[i] = Stus;
              console.log(Stus)
            }

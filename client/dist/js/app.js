@@ -26950,6 +26950,7 @@ var DashboardPage = function (_React$Component) {
             if (Stus._id === user._id) {
 
               Stus.Coin = xhr.response.Coin;
+              Stus.pendingRequest = false;
               Usermemory[i] = Stus;
               console.log(Stus);
             }
@@ -27569,7 +27570,7 @@ var StudentPage = function (_React$Component) {
         if (xhr.status === 200) {
           console.log(xhr.response);
           _this5.setState({
-            hasOpenRequest: xhr.response.length > 0
+            hasOpenRequest: xhr.response.pendingRequest
           });
         }
       });
@@ -27580,7 +27581,8 @@ var StudentPage = function (_React$Component) {
     value: function requestCoins() {
       var _this6 = this;
 
-      console.log('fired');
+      console.log('plus');
+      var user = this.state.user;
       var xhr = new XMLHttpRequest();
       xhr.open('post', '/api/coin-request');
       xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -27590,14 +27592,15 @@ var StudentPage = function (_React$Component) {
       xhr.addEventListener('load', function () {
 
         if (xhr.status === 200) {
-          console.log(_this6);
-          console.log(_this6.state);
+          user.pendingRequest = true;
+          console.log(xhr.response);
           _this6.setState({
-            hasOpenRequest: true
+            hasOpenRequest: xhr.response.pendingRequest
+
           });
         }
       });
-      xhr.send('test=test');
+      xhr.send(user);
     }
 
     /**

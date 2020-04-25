@@ -10,7 +10,6 @@ router.get("/dashboard", (req, res) => {
     docs.forEach(async (user, i) => {
       const coinZ = await CoinRequest.find({user: user._id});
       console.log(coinZ);
-      user.pendingRequest = true;
       allUsers.push(user);
       if (docs.length === i+ 1){
        return res.status(200).json({
@@ -32,7 +31,7 @@ router.get("/users",  (req, res) => {
   return User.find({}, async function (err, docs) {
     console.log(docs);
    docs.forEach(async (user, i) => {
-     user.pendingRequest = await CoinRequest.find({status: 'pending'});
+    //  user.pendingRequest = await CoinRequest.find({status: 'pending'});
      allUsers.push(user);
      if (docs.length === i+ 1){
       return res.status(200).json(allUsers);
@@ -74,9 +73,9 @@ router.post("/coin-approve", (req, res) => {
   User.findOneAndUpdate(
     { _id: req.body._id },
 
-    { $set: { Coin: Number(req.body.Coin) + 100 } },
+    { $set: { Coin: Number(req.body.Coin) + 100, pendingRequest: false } },
   ).then(result => {
-    result.Coin = Number(req.body.Coin) + 100;
+    result.Coin = Number(req.body.Coin) + 100, pendingRequest = false;
     
     CoinRequest.findOneAndUpdate({ user: req.body._id }, 
       { $set: { status:  'approved' } }, {new: true}, function (err, coinResult){
@@ -86,21 +85,20 @@ router.post("/coin-approve", (req, res) => {
   }) 
   .catch(err => res.status(422).json(err));
 });
-
 router.post("/coin-request", (req, res) => {
-  if (!req.user) {
-    return res.status(401);
-  }
-  return CoinRequest.create({ user: req.user._id }, function (err, result) {
-    return res.status(200).json(result);
-  });
+  User.findOneAndUpdate(
+    { _id: req.user._id },
+
+    { $set: { pendingRequest: true } },
+  ).then(result => res.json(result))
+  .catch(err => res.status(422).json(err));
 });
 
 router.get("/coin-request", (req, res) => {
   if (!req.user) {
     return res.status(401);
   }
-  return CoinRequest.find({ user: req.user._id }, function (err, result) {
+  return User.find({ user: req.user._id }, function (err, result) {
     return res.json(result);
   });
 });

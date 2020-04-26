@@ -57,7 +57,7 @@ const TableSimple = (props) => (
               labelPosition="before"
               primary={true}
               icon={<Coin />}
-
+              onClick={() => {props.denyCoins(student)}}
             />
               ) : '' }
             </TableRowColumn>

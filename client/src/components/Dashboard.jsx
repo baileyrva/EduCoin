@@ -4,7 +4,7 @@ import { Card, CardTitle, CardText } from "material-ui/Card";
 import TableSimple from "./Tables.jsx";
 
 
-const Dashboard = ({ secretData, user, allUsers, giveCoins }) => (
+const Dashboard = ({ secretData, user, allUsers, giveCoins, denyCoins }) => (
   <Card className="container" id="noBackground">
     <CardTitle
       title="Dashboard"
@@ -13,7 +13,7 @@ const Dashboard = ({ secretData, user, allUsers, giveCoins }) => (
     />
   {secretData && <CardText style={{ fontSize: '16px', color: 'white' }}>Welcome <strong>{user.name}</strong>!<br />{secretData} <br />Student data <br /> </CardText>}
   
-     <TableSimple allUsers={allUsers} giveCoins={giveCoins}/>
+     <TableSimple allUsers={allUsers} giveCoins={giveCoins} denyCoins={denyCoins}/>
   </Card>
 );
 

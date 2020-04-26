@@ -85,6 +85,17 @@ router.post("/coin-approve", (req, res) => {
   }) 
   .catch(err => res.status(422).json(err));
 });
+
+router.post("/coin-deny",  (req, res) => {
+  User.findOneAndUpdate(
+    {_id: req.body._id},
+    {$set: {pendingRequest: false }}
+
+  ).then(result => {
+    res.json(result);
+  })
+});
+
 router.post("/coin-request", (req, res) => {
   User.findOneAndUpdate(
     { _id: req.user._id },

@@ -19,6 +19,7 @@ class DashboardPage extends React.Component {
     };
 
     this.giveCoins = this.giveCoins.bind(this);
+    this.denyCoins = this.denyCoins.bind(this);
   }
 
   /**
@@ -47,7 +48,7 @@ class DashboardPage extends React.Component {
   }
 
   giveCoins(user) {
-    console.log('fireZ');
+    
     
     const xhr = new XMLHttpRequest();
     xhr.open("post", "/api/coin-approve");
@@ -65,7 +66,7 @@ class DashboardPage extends React.Component {
              Stus.Coin = xhr.response.Coin;
              Stus.pendingRequest = false;
              Usermemory[i] = Stus;
-             console.log(Stus)
+             
            }
         });  
         this.setState({
@@ -77,7 +78,35 @@ class DashboardPage extends React.Component {
     xhr.send('_id='+user._id+"&Coin="+user.Coin);
   }
   
+  denyCoins(user) {
+    console.log("deny"); 
+    const xhr = new XMLHttpRequest();
+    xhr.open("post", "/api/coin-deny");
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    // set the authorization HTTP header
+    xhr.setRequestHeader("Authorization", `bearer ${Auth.getToken()}`);
+    xhr.responseType = "json";
+    xhr.addEventListener("load", () => {
+      console.log(xhr.response);
+      if (xhr.status === 200) {
+        let Usermemory = this.state.allUsers;
+        Usermemory.forEach((Stus,i) => {
+           if(Stus._id === user._id){
 
+             
+             Stus.pendingRequest = false;
+             Usermemory[i] = Stus;
+             
+           }
+        });  
+        this.setState({
+          allUsers: Usermemory,
+          
+        });
+      }
+    });
+    xhr.send('_id='+user._id);
+  }
   
 
   getSingleUser() {
@@ -104,7 +133,7 @@ class DashboardPage extends React.Component {
    * Render the component.
    */
   render() {
-    return (<Dashboard secretData={this.state.secretData} giveCoins={this.giveCoins} user={this.state.user} allUsers={this.state.allUsers} />);
+    return (<Dashboard secretData={this.state.secretData} giveCoins={this.giveCoins} denyCoins={this.denyCoins} user={this.state.user} allUsers={this.state.allUsers} />);
   }
 
 }

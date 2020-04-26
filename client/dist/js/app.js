@@ -28774,7 +28774,8 @@ var Dashboard = function Dashboard(_ref) {
   var secretData = _ref.secretData,
       user = _ref.user,
       allUsers = _ref.allUsers,
-      giveCoins = _ref.giveCoins;
+      giveCoins = _ref.giveCoins,
+      denyCoins = _ref.denyCoins;
   return _react2.default.createElement(
     _Card.Card,
     { className: "container", id: "noBackground" },
@@ -28801,7 +28802,7 @@ var Dashboard = function Dashboard(_ref) {
       _react2.default.createElement("br", null),
       " "
     ),
-    _react2.default.createElement(_Tables2.default, { allUsers: allUsers, giveCoins: giveCoins })
+    _react2.default.createElement(_Tables2.default, { allUsers: allUsers, giveCoins: giveCoins, denyCoins: denyCoins })
   );
 };
 
@@ -29319,8 +29320,10 @@ var TableSimple = function TableSimple(props) {
               label: 'Deny',
               labelPosition: 'before',
               primary: true,
-              icon: _react2.default.createElement(_donutSmall2.default, null)
-
+              icon: _react2.default.createElement(_donutSmall2.default, null),
+              onClick: function onClick() {
+                props.denyCoins(student);
+              }
             }) : ''
           )
         );
@@ -29384,6 +29387,7 @@ var DashboardPage = function (_React$Component) {
     };
 
     _this.giveCoins = _this.giveCoins.bind(_this);
+    _this.denyCoins = _this.denyCoins.bind(_this);
     return _this;
   }
 
@@ -29419,8 +29423,6 @@ var DashboardPage = function (_React$Component) {
     value: function giveCoins(user) {
       var _this3 = this;
 
-      console.log('fireZ');
-
       var xhr = new XMLHttpRequest();
       xhr.open("post", "/api/coin-approve");
       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -29437,7 +29439,6 @@ var DashboardPage = function (_React$Component) {
               Stus.Coin = xhr.response.Coin;
               Stus.pendingRequest = false;
               Usermemory[i] = Stus;
-              console.log(Stus);
             }
           });
           _this3.setState({
@@ -29449,9 +29450,40 @@ var DashboardPage = function (_React$Component) {
       xhr.send('_id=' + user._id + "&Coin=" + user.Coin);
     }
   }, {
+    key: 'denyCoins',
+    value: function denyCoins(user) {
+      var _this4 = this;
+
+      console.log("deny");
+      var xhr = new XMLHttpRequest();
+      xhr.open("post", "/api/coin-deny");
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      // set the authorization HTTP header
+      xhr.setRequestHeader("Authorization", 'bearer ' + _Auth2.default.getToken());
+      xhr.responseType = "json";
+      xhr.addEventListener("load", function () {
+        console.log(xhr.response);
+        if (xhr.status === 200) {
+          var Usermemory = _this4.state.allUsers;
+          Usermemory.forEach(function (Stus, i) {
+            if (Stus._id === user._id) {
+
+              Stus.pendingRequest = false;
+              Usermemory[i] = Stus;
+            }
+          });
+          _this4.setState({
+            allUsers: Usermemory
+
+          });
+        }
+      });
+      xhr.send('_id=' + user._id);
+    }
+  }, {
     key: 'getSingleUser',
     value: function getSingleUser() {
-      var _this4 = this;
+      var _this5 = this;
 
       var xhr = new XMLHttpRequest();
       xhr.open('get', '/api/user');
@@ -29462,7 +29494,7 @@ var DashboardPage = function (_React$Component) {
       xhr.addEventListener('load', function () {
         console.log(xhr.response);
         if (xhr.status === 200) {
-          _this4.setState({
+          _this5.setState({
             loggedInUser: xhr.response
           });
         }
@@ -29477,7 +29509,7 @@ var DashboardPage = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      return _react2.default.createElement(_Dashboard2.default, { secretData: this.state.secretData, giveCoins: this.giveCoins, user: this.state.user, allUsers: this.state.allUsers });
+      return _react2.default.createElement(_Dashboard2.default, { secretData: this.state.secretData, giveCoins: this.giveCoins, denyCoins: this.denyCoins, user: this.state.user, allUsers: this.state.allUsers });
     }
   }]);
 

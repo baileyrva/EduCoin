@@ -13,7 +13,7 @@ const UserSchema = new mongoose.Schema({
   isStudent: Boolean,
   Coin: Number,
   pendingRequest: Boolean
-
+  
 });
 
 

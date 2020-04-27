@@ -29186,6 +29186,12 @@ var Student = function Student(_ref) {
         null,
         "Coin amount: ",
         coin
+      ),
+      _react2.default.createElement(
+        "div",
+        null,
+        "Last Request: ",
+        user.requestHistory[user.requestHistory.length - 1].status
       )
     ),
     !hasOpenRequest ? _react2.default.createElement(_RaisedButton2.default, {

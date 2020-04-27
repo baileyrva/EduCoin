@@ -6,38 +6,38 @@ const router = new express.Router();
 
 router.get("/dashboard", (req, res) => {
   let allUsers = [];
-  return User.find({isStudent:true}, function(err, docs) {
+  return User.find({ isStudent: true }, function (err, docs) {
     docs.forEach(async (user, i) => {
-      const coinZ = await CoinRequest.find({user: user._id});
-      console.log(coinZ);
+      const coinZ = await CoinRequest.find({ user: user._id });
+      
       allUsers.push(user);
-      if (docs.length === i+ 1){
-       return res.status(200).json({
-        message: "You're authorized to see this teacher dashboard.",
-        // user values passed through from auth middleware
-        user: req.user,
-        students: allUsers
-       });
+      if (docs.length === i + 1) {
+        return res.status(200).json({
+          message: "You're authorized to see this teacher dashboard.",
+          // user values passed through from auth middleware
+          user: req.user,
+          students: allUsers
+        });
 
       }
     })
-     
-  }) 
+
+  })
 });
 
-router.get("/users",  (req, res) => {
-  console.log("test");
+router.get("/users", (req, res) => {
+  
   let allUsers = [];
   return User.find({}, async function (err, docs) {
-    console.log(docs);
-   docs.forEach(async (user, i) => {
-    //  user.pendingRequest = await CoinRequest.find({status: 'pending'});
-     allUsers.push(user);
-     if (docs.length === i+ 1){
-      return res.status(200).json(allUsers);
-     }
-   })
     
+    docs.forEach(async (user, i) => {
+      //  user.pendingRequest = await CoinRequest.find({status: 'pending'});
+      allUsers.push(user);
+      if (docs.length === i + 1) {
+        return res.status(200).json(allUsers);
+      }
+    })
+
   });
 });
 
@@ -63,33 +63,45 @@ router.post("/coin-subtraction", (req, res) => {
   User.findOneAndUpdate(
     { _id: req.user._id },
 
-    { $set: { Coin: req.user.Coin - 5 } },
+    { $set: { Coin: req.user.Coin - 5 }  },
   ).then(result => res.json(result))
-  .catch(err => res.status(422).json(err));
+    .catch(err => res.status(422).json(err));
 });
 
 router.post("/coin-approve", (req, res) => {
-  console.log(req.body);
+  
   User.findOneAndUpdate(
     { _id: req.body._id },
 
-    { $set: { Coin: Number(req.body.Coin) + 100, pendingRequest: false } },
+    {
+      $set: { Coin: Number(req.body.Coin) + 100, pendingRequest: false }, $push: {
+        requestHistory: {
+          status: 'approved', date: Date.now
+        }
+      }
+    },
   ).then(result => {
     result.Coin = Number(req.body.Coin) + 100, pendingRequest = false;
-    
-    CoinRequest.findOneAndUpdate({ user: req.body._id }, 
-      { $set: { status:  'approved' } }, {new: true}, function (err, coinResult){
-       console.log(coinResult);
-       res.json(result);
-    })
-  }) 
-  .catch(err => res.status(422).json(err));
+
+    CoinRequest.findOneAndUpdate({ user: req.body._id },
+      { $set: { status: 'approved' } }, { new: true }, function (err, coinResult) {
+        console.log(coinResult);
+        res.json(result);
+      })
+  })
+    .catch(err => res.status(422).json(err));
 });
 
-router.post("/coin-deny",  (req, res) => {
+router.post("/coin-deny", (req, res) => {
   User.findOneAndUpdate(
-    {_id: req.body._id},
-    {$set: {pendingRequest: false }}
+    { _id: req.body._id },
+    {
+      $set: { pendingRequest: false }, $push: {
+        requestHistory: {
+          status: 'denied', date: Date.now
+        }
+      }
+    }
 
   ).then(result => {
     res.json(result);
@@ -100,9 +112,16 @@ router.post("/coin-request", (req, res) => {
   User.findOneAndUpdate(
     { _id: req.user._id },
 
-    { $set: { pendingRequest: true } },
+    {
+      $set: { pendingRequest: true }, $push: {
+        requestHistory: {
+          status: 'requested', date: Date.now
+        }
+      }
+    },
+
   ).then(result => res.json(result))
-  .catch(err => res.status(422).json(err));
+    .catch(err => res.status(422).json(err));
 });
 
 router.get("/coin-request", (req, res) => {

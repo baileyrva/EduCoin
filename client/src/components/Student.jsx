@@ -15,7 +15,7 @@ const Student = ({ secretData, user, handleTouchTap, coin, CoinExchange, hasOpen
       <CardText style={{ fontSize: "16px", color: "white" }}>
         Welcome <strong>{user.name}</strong>! <br />
         <div>Coin amount: {coin}</div>
-        <div>Last Request: {user.requestHistory[user.requestHistory.length - 1].status}</div>
+        <div>Last Request: {user.requestHistory.length > 0 ? user.requestHistory[user.requestHistory.length - 1].status : "none"}</div>
       </CardText>
     )}
     {!hasOpenRequest ? (

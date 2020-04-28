@@ -12,8 +12,11 @@ const UserSchema = new mongoose.Schema({
   isTeacher: Boolean, 
   isStudent: Boolean,
   Coin: Number,
-  pendingRequest: Boolean
+  pendingRequest: Boolean,
 
+  requestHistory: {
+    type: Array
+  }  
 });
 
 

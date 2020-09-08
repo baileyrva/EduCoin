@@ -1,4 +1,4 @@
 {
-  "dbUri": "mongodb://envirobros:envirobrosrule1@ds125195.mlab.com:25195/heroku_frg8b5mh",
+  "dbUri": "mongodb+srv://envirobros:envirobrosrule1@cluster-frg8b5mh.umzjk.mongodb.net/heroku_frg8b5mh?retryWrites=true&w=majority",
   "jwtSecret": "makemoney"
 }
